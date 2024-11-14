@@ -1,7 +1,6 @@
-import React from 'react';
 import {ShoppingCart} from 'lucide-react';
-import {useCart} from '../context/CartContext';
 import {useNavigate} from 'react-router-dom';
+import {useCart} from '../context/CartContext';
 
 export default function Cart() {
   const {items, getTotalPrice} = useCart();
