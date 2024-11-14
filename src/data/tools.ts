@@ -452,7 +452,7 @@ export const tools: Tool[] = [
       'Toma de 1/2 pulgada',
       'Máxima precisión'
     ],
-    urgency: '✨ ¡Nueva sin uso!',
+    urgency: '✨ Usado pero en excelente estado',
     ctaText: '¡AGREGAR AL CARRO! →',
     discount: '0%',
     image: 'https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCL/119951708_02/w=1500,h=1500,fit=pad'
@@ -490,7 +490,7 @@ export const tools: Tool[] = [
       'Sistema de fijación seguro',
       'Ideal para trabajos precisos'
     ],
-    urgency: '🎯 ¡Nueva sellada!',
+    urgency: '🎯 Usado pero en excelente estado',
     ctaText: '¡RESERVAR AHORA! →',
     discount: '0%',
     image: 'https://http2.mlstatic.com/D_NQ_NP_747906-CBT54769882175_032023-O.webp'
@@ -509,7 +509,7 @@ export const tools: Tool[] = [
       'Sistema de ajuste rápido',
       'Acabado anticorrosivo'
     ],
-    urgency: '⭐ ¡Set nuevo completo!',
+    urgency: '⭐ ¡Set usado',
     ctaText: '¡COMPRAR SET! →',
     discount: '0%',
     image: 'https://http2.mlstatic.com/D_NQ_NP_641418-MLC43660789336_102020-O.webp'
