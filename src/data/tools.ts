@@ -1,4 +1,32 @@
 import { Tool } from '../types';
+import sp6000Image from '../assets/images/SP6000-M1.webp';
+import nb2012Image from '../assets/images/2012NB-M1.webp';
+import gts10jImage from '../assets/images/GTS10J-B1.webp';
+import gcm10xImage from '../assets/images/GCM10X-B1.webp';
+import rp1801Image from '../assets/images/RP1801-M1.png';
+import prensaFImage from '../assets/images/PREF-M1.webp';
+import riel19mImage from '../assets/images/GR19M-M1.webp';
+import riel10mImage from '../assets/images/GR19M-M2.webp';
+import adaptadorImage from '../assets/images/ADJC-M1.webp';
+import discoImage from '../assets/images/DS165-M1.webp';
+import m3700Image from '../assets/images/M3700-M1.avif';
+import bo5030Image from '../assets/images/BO5030-M1.png';
+import gst75eImage from '../assets/images/GST75E-B1.webp';
+import recolectorImage from '../assets/images/RDP2012-M1.jpeg';
+import sl300Image from '../assets/images/SL300-I1.webp';
+import pf36Image from '../assets/images/PF36-I1.webp';
+import r3Image from '../assets/images/R3-K1.webp';
+import k5Image from '../assets/images/K5-K1.jpg';
+import mc1269Image from '../assets/images/1269-MC1.webp';
+import admImage from '../assets/images/ADM-MC1.webp';
+import fbr12Image from '../assets/images/FBR12-M1.webp';
+import fm45Image from '../assets/images/FM45-M1.webp';
+import fc63Image from '../assets/images/FC63-M1.avif';
+import fc14Image from '../assets/images/FC14-M1.webp';
+import mrfImage from '../assets/images/MRF-M1.webp';
+import pst34Image from '../assets/images/PST34-I1.webp';
+import ftpImage from '../assets/images/FTP-M1.avif';
+
 
 export const tools: Tool[] = [
   {
@@ -18,7 +46,7 @@ export const tools: Tool[] = [
     urgency: '🔥 Precio especial por tiempo limitado',
     ctaText: '¡RESERVAR AHORA! →',
     discount: '-25%',
-    image: 'https://makitaonline.vtexassets.com/arquivos/ids/156554-800-auto?v=637957461372800000&width=800&height=auto&aspect=true'
+    image: sp6000Image
   },
   {
     id: 2,
@@ -37,7 +65,7 @@ export const tools: Tool[] = [
     urgency: '⚡ Precio especial para profesionales',
     ctaText: '¡COMPRAR AHORA! →',
     discount: '-25%',
-    image: 'https://www.triplee.cl/15356-medium_default/sierra-de-banco-bosch-gts-10-j-1800w.jpg'
+    image: gts10jImage
   },
   {
     id: 3,
@@ -56,7 +84,7 @@ export const tools: Tool[] = [
     urgency: '🎯 Oferta especial contratistas',
     ctaText: '¡CONTACTAR AHORA! →',
     discount: '-25%',
-    image: 'https://makitacenter.vtexassets.com/arquivos/ids/157017-800-auto?v=637999743517200000&width=800&height=auto&aspect=true'
+    image: nb2012Image
   },
   {
     id: 4,
@@ -75,7 +103,7 @@ export const tools: Tool[] = [
     urgency: '💫 Última unidad disponible',
     ctaText: '¡RESERVAR YA! →',
     discount: '-25%',
-    image: 'https://aritrans.cl/wp-content/uploads/2022/03/0601B150N0-000_01.jpg'
+    image: gcm10xImage
   },
   {
     id: 5,
@@ -94,7 +122,7 @@ export const tools: Tool[] = [
     urgency: '🕒 Precio válido esta semana',
     ctaText: '¡APROVECHAR OFERTA! →',
     discount: '-25%',
-    image: 'https://makitaonline.vtexassets.com/arquivos/ids/156474-800-auto?v=637956769117600000&width=800&height=auto&aspect=true'
+    image: rp1801Image
   },
   {
     id: 6,
@@ -113,7 +141,7 @@ export const tools: Tool[] = [
     urgency: '✨ Complemento esencial',
     ctaText: '¡AGREGAR AL SET! →',
     discount: '-30%',
-    image: 'https://makitaespecialista.cl/245-large_default/set_prensa_f_para_guia_rielpsp6000_2pz.webp'
+    image: prensaFImage
   },
   {
     id: 7,
@@ -132,7 +160,7 @@ export const tools: Tool[] = [
     urgency: '🎯 Stock limitado',
     ctaText: '¡COMPRAR AHORA! →',
     discount: '-30%',
-    image: 'https://makitaespecialista.cl/1007-large_default/guia_riel_longitud_total_1_9m.webp'
+    image: riel19mImage
   },
   {
     id: 8,
@@ -151,7 +179,7 @@ export const tools: Tool[] = [
     urgency: '💫 Complemento perfecto',
     ctaText: '¡AGREGAR AL CARRITO! →',
     discount: '-30%',
-    image: 'https://makitaespecialista.cl/1007-large_default/guia_riel_longitud_total_1_9m.webp'
+    image: riel10mImage
   },
   {
     id: 9,
@@ -170,7 +198,7 @@ export const tools: Tool[] = [
     urgency: '⚡ ¡Último disponible!',
     ctaText: '¡RESERVAR YA! →',
     discount: '-30%',
-    image: 'https://makitaespecialista.cl/248-large_default/adaptador_de_juntas_para_guia_carril.webp'
+    image: adaptadorImage
   },
   {
     id: 10,
@@ -189,7 +217,7 @@ export const tools: Tool[] = [
     urgency: '🎯 ¡Stock limitado!',
     ctaText: '¡COMPRAR AHORA! →',
     discount: '-30%',
-    image: 'https://aritrans.cl/wp-content/uploads/2022/03/Captura-de-pantalla-2019-02-12-a-las-9.57.17-1.png'
+    image: discoImage
   },
   {
     id: 11,
@@ -208,7 +236,7 @@ export const tools: Tool[] = [
     urgency: '🔥 ¡Oferta especial!',
     ctaText: '¡APROVECHAR AHORA! →',
     discount: '-30%',
-    image: 'https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCL/133932407_01/w=1500,h=1500,fit=pad'
+    image: m3700Image
   },
   {
     id: 12,
@@ -227,7 +255,7 @@ export const tools: Tool[] = [
     urgency: '⭐ ¡Precio especial!',
     ctaText: '¡COMPRAR YA! →',
     discount: '-30%',
-    image: 'https://makitaonline.vtexassets.com/arquivos/ids/155887-1200-auto?v=637775114625870000&width=1200&height=auto&aspect=true'
+    image: bo5030Image
   },
   {
     id: 13,
@@ -246,7 +274,7 @@ export const tools: Tool[] = [
     urgency: '🎯 ¡Últimas unidades!',
     ctaText: '¡RESERVAR AHORA! →',
     discount: '-30%',
-    image: 'https://inalambricoschile.vtexassets.com/arquivos/ids/164664-800-auto?v=638125180558900000&width=800&height=auto&aspect=true'
+    image: gst75eImage
   },
   {
     id: 14,
@@ -265,7 +293,7 @@ export const tools: Tool[] = [
     urgency: '✨ ¡Complemento esencial!',
     ctaText: '¡AGREGAR AL CARRITO! →',
     discount: '-30%',
-    image: 'https://cdnx.jumpseller.com/my-toolbox-chile/image/41454924/e95e1669-1c0c-47c9-8858-4f1cfd0730a9-d_823276-mlc51458854452_092022-o.jpeg?1698357796'
+    image: recolectorImage
   },
   {
     id: 15,
@@ -284,7 +312,7 @@ export const tools: Tool[] = [
     urgency: '💪 ¡Set completo!',
     ctaText: '¡COMPRAR SET! →',
     discount: '-30%',
-    image: 'https://construplaza.cl/media/catalog/product/P/R/PREIRW964720_20231222161042.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=420&width=600&canvas=600:420'
+    image: sl300Image
   },
   {
     id: 16,
@@ -303,7 +331,7 @@ export const tools: Tool[] = [
     urgency: '🎯 ¡Oferta especial!',
     ctaText: '¡COMPRAR AHORA! →',
     discount: '-30%',
-    image: 'https://construplaza.cl/media/catalog/product/P/R/PREIRW223136_20240326101037.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=420&width=600&canvas=600:420'
+    image: pf36Image
   },
   {
     id: 17,
@@ -322,7 +350,7 @@ export const tools: Tool[] = [
     urgency: '⚡ ¡Stock limitado!',
     ctaText: '¡RESERVAR YA! →',
     discount: '-30%',
-    image: 'https://cdnx.jumpseller.com/maqstore/image/17471951/resize/540/540?1632241841'
+    image: r3Image
   },
   {
     id: 18,
@@ -341,7 +369,7 @@ export const tools: Tool[] = [
     urgency: '✨ ¡Oportunidad única!',
     ctaText: '¡APROVECHAR AHORA! →',
     discount: '-30%',
-    image: 'https://m.media-amazon.com/images/I/71f4HJKFbqL._AC_SL1500_.jpg'
+    image: k5Image
   },
   {
     id: 19,
@@ -360,7 +388,7 @@ export const tools: Tool[] = [
     urgency: '🎯 ¡Precio especial!',
     ctaText: '¡COMPRAR AHORA! →',
     discount: '-30%',
-    image: 'https://cdnx.jumpseller.com/maqstore/image/39624869/resize/540/540?1694548622'
+    image: mc1269Image
   },
   {
     id: 20,
@@ -379,7 +407,7 @@ export const tools: Tool[] = [
     urgency: '⚡ ¡Última unidad!',
     ctaText: '¡RESERVAR YA! →',
     discount: '-30%',
-    image: 'https://cdnx.jumpseller.com/maqstore/image/17472163/resize/540/540?1657027461'
+    image: admImage
   },
   {
     id: 21,
@@ -398,7 +426,7 @@ export const tools: Tool[] = [
     urgency: '✨ ¡Nueva en caja!',
     ctaText: '¡COMPRAR AHORA! →',
     discount: '0%',
-    image: 'https://http2.mlstatic.com/D_NQ_NP_673308-MLC50823161236_072022-O.webp'
+    image: fbr12Image
   },
   {
     id: 22,
@@ -417,7 +445,7 @@ export const tools: Tool[] = [
     urgency: '🎯 ¡Set completo nuevo!',
     ctaText: '¡RESERVAR SET! →',
     discount: '0%',
-    image: 'https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCL/119982465_02/w=1500,h=1500,fit=pad'
+    image: ftpImage
   },
   {
     id: 23,
@@ -436,7 +464,7 @@ export const tools: Tool[] = [
     urgency: '⚡ ¡Nueva disponible!',
     ctaText: '¡COMPRAR YA! →',
     discount: '0%',
-    image: 'https://onetool.com.co/cdn/shop/files/Hdd8862beb8e04a9e9f4981fc39c9af80h.jpg?v=1684547227'
+    image: fm45Image
   },
   {
     id: 24,
@@ -455,7 +483,7 @@ export const tools: Tool[] = [
     urgency: '✨ Usado pero en excelente estado',
     ctaText: '¡AGREGAR AL CARRO! →',
     discount: '0%',
-    image: 'https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCL/119951708_02/w=1500,h=1500,fit=pad'
+    image: fc63Image
   },
   {
     id: 25,
@@ -474,7 +502,7 @@ export const tools: Tool[] = [
     urgency: '💫 ¡Stock disponible!',
     ctaText: '¡COMPRAR AHORA! →',
     discount: '0%',
-    image: 'https://http2.mlstatic.com/D_NQ_NP_835084-MLC52665173196_112022-O.webp'
+    image: fc14Image
   },
   {
     id: 26,
@@ -493,7 +521,7 @@ export const tools: Tool[] = [
     urgency: '🎯 Usado pero en excelente estado',
     ctaText: '¡RESERVAR AHORA! →',
     discount: '0%',
-    image: 'https://http2.mlstatic.com/D_NQ_NP_747906-CBT54769882175_032023-O.webp'
+    image: mrfImage
   },
   {
     id: 27,
@@ -512,6 +540,6 @@ export const tools: Tool[] = [
     urgency: '⭐ ¡Set usado',
     ctaText: '¡COMPRAR SET! →',
     discount: '0%',
-    image: 'https://http2.mlstatic.com/D_NQ_NP_641418-MLC43660789336_102020-O.webp'
+    image: pst34Image
   }
 ];
