@@ -1,5 +1,4 @@
 import Banner from './components/Banner';
-import Contact from './components/Contact';
 import Header from './components/Header';
 import ToolCard from './components/ToolCard';
 import {tools} from './data/tools';
