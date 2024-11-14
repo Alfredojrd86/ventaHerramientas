@@ -1,7 +1,8 @@
 import {Check, ShoppingCart} from 'lucide-react';
-import {Tool} from '../types';
-import {useCart} from '../context/CartContext';
 import {useState} from 'react';
+import {useCart} from '../context/CartContext';
+import {Tool} from '../types';
+import MercadoPago from '../utils/MercadoPago';
 
 // WhatsApp SVG icon component
 const WhatsAppIcon = () => (
@@ -31,12 +32,14 @@ export default function ToolCard({tool}: {tool: Tool}) {
     ? 'Usado - Excelente Estado'
     : tool.condition;
 
-  const handleWhatsAppClick = () => {
+  const handleWhatsAppClick = (isPurchase: boolean) => {
     const message = encodeURIComponent(
       `Hola! Me interesa la herramienta:\n` +
         `Código: ${tool.code}\n` +
         `${tool.name}\n` +
-        `Precio: ${formatPrice(tool.price)}`
+        (isPurchase
+          ? `Precio: ${formatPrice(tool.price)}\n`
+          : 'Consulta: Estoy interesado en más información sobre esta herramienta.')
     );
     window.open(`https://wa.me/+56935397603?text=${message}`, '_blank');
   };
@@ -136,9 +139,10 @@ export default function ToolCard({tool}: {tool: Tool}) {
             ) : (
               <ShoppingCart className="w-5 h-5 sm:w-6 sm:h-6 mx-auto transition-transform group-hover:scale-110" />
             )}
+            <span className="text-xs block mt-1">Agregar al carrito</span>
           </button>
           <button
-            onClick={handleWhatsAppClick}
+            onClick={() => handleWhatsAppClick(false)}
             title="Consultar por WhatsApp"
             className="group w-full bg-[#25D366] hover:bg-[#128C7E] text-white
                       p-2.5 sm:p-3 rounded-lg
@@ -146,8 +150,18 @@ export default function ToolCard({tool}: {tool: Tool}) {
                       border border-[#128C7E]"
           >
             <WhatsAppIcon />
+            <span className="text-xs block mt-1">Consultar por WhatsApp</span>
           </button>
         </div>
+      </div>
+
+      {/* New Payment Banner */}
+      <div className="bg-blue-100 p-2 sm:p-3 rounded-lg text-center flex items-center justify-center">
+        <MercadoPago className="w-16 h-16 mr-2" />
+        <p className="text-sm sm:text-base font-semibold text-blue-800">
+          ¡Compra segura! 💳 Paga con Mercado Pago: tarjetas de crédito o
+          débito.
+        </p>
       </div>
     </div>
   );
