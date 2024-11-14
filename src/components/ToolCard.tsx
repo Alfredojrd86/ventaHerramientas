@@ -50,8 +50,11 @@ export default function ToolCard({tool}: {tool: Tool}) {
 
   return (
     <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 h-full flex flex-col border border-gray-200">
-      {/* Imagen y Descuento - Altura fija */}
-      <div className="relative w-full h-48 cursor-pointer" onClick={() => setIsModalOpen(true)}>
+      {/* Imagen y Descuento */}
+      <div
+        className="relative w-full h-48 cursor-pointer"
+        onClick={() => setIsModalOpen(true)}
+      >
         <img
           src={tool.image}
           alt={tool.name}
@@ -70,7 +73,7 @@ export default function ToolCard({tool}: {tool: Tool}) {
         </div>
       </div>
 
-      {/* Contenido - Flex grow para ocupar espacio restante */}
+      {/* Contenido */}
       <div className="p-4 flex-1 flex flex-col">
         {/* Encabezado */}
         <div className="mb-2">
@@ -107,7 +110,7 @@ export default function ToolCard({tool}: {tool: Tool}) {
           ))}
         </div>
 
-        {/* Botones - Siempre al fondo */}
+        {/* Botones */}
         <div className="flex gap-2 mt-auto">
           <button
             onClick={handleAddToCart}
@@ -144,10 +147,10 @@ export default function ToolCard({tool}: {tool: Tool}) {
       </div>
 
       {/* Modal para la imagen */}
-      <ImageModal 
-        isOpen={isModalOpen} 
-        imageUrl={tool.image} 
-        onClose={() => setIsModalOpen(false)} 
+      <ImageModal
+        isOpen={isModalOpen}
+        imageUrl={tool.image}
+        onClose={() => setIsModalOpen(false)}
       />
     </div>
   );
