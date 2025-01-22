@@ -1,31 +1,25 @@
-import { Tool } from '../types';
-import sp6000Image from '../assets/images/SP6000-M1.webp';
-import nb2012Image from '../assets/images/2012NB-M1.webp';
-import gts10jImage from '../assets/images/GTS10J-B1.webp';
-import gcm10xImage from '../assets/images/GCM10X-B1.webp';
-import rp1801Image from '../assets/images/RP1801-M1.png';
-import prensaFImage from '../assets/images/PREF-M1.webp';
-import riel19mImage from '../assets/images/GR19M-M1.webp';
-import riel10mImage from '../assets/images/GR19M-M2.webp';
-import adaptadorImage from '../assets/images/ADJC-M1.webp';
-import discoImage from '../assets/images/DS165-M1.webp';
-import m3700Image from '../assets/images/M3700-M1.avif';
-import bo5030Image from '../assets/images/BO5030-M1.png';
-import gst75eImage from '../assets/images/GST75E-B1.webp';
-import recolectorImage from '../assets/images/RDP2012-M1.jpeg';
-import sl300Image from '../assets/images/SL300-I1.webp';
-import pf36Image from '../assets/images/PF36-I1.webp';
-import r3Image from '../assets/images/R3-K1.webp';
-import k5Image from '../assets/images/K5-K1.jpg';
 import mc1269Image from '../assets/images/1269-MC1.webp';
 import admImage from '../assets/images/ADM-MC1.webp';
+import bo5030Image from '../assets/images/BO5030-M1.png';
+import discoImage from '../assets/images/DS165-M1.webp';
 import fbr12Image from '../assets/images/FBR12-M1.webp';
-import fm45Image from '../assets/images/FM45-M1.webp';
-import fc63Image from '../assets/images/FC63-M1.avif';
 import fc14Image from '../assets/images/FC14-M1.webp';
-import mrfImage from '../assets/images/MRF-M1.webp';
-import pst34Image from '../assets/images/PST34-I1.webp';
+import fc63Image from '../assets/images/FC63-M1.avif';
+import fm45Image from '../assets/images/FM45-M1.webp';
 import ftpImage from '../assets/images/FTP-M1.avif';
+import gcm10xImage from '../assets/images/GCM10X-B1.webp';
+import gst75eImage from '../assets/images/GST75E-B1.webp';
+import gts10jImage from '../assets/images/GTS10J-B1.webp';
+import k5Image from '../assets/images/K5-K1.jpg';
+import m3700Image from '../assets/images/M3700-M1.avif';
+import mrfImage from '../assets/images/MRF-M1.webp';
+import pf36Image from '../assets/images/PF36-I1.webp';
+import pst34Image from '../assets/images/PST34-I1.webp';
+import r3Image from '../assets/images/R3-K1.webp';
+import rp1801Image from '../assets/images/RP1801-M1.png';
+import sl300Image from '../assets/images/SL300-I1.webp';
+import sp6000Image from '../assets/images/SP6000-M1.webp';
+import { Tool } from '../types';
 
 
 export const tools: Tool[] = [
@@ -67,25 +61,25 @@ export const tools: Tool[] = [
     discount: '-25%',
     image: gts10jImage
   },
-  {
-    id: 3,
-    code: '2012NB-M1',
-    name: 'Cepillo de Banco Makita 2012NB',
-    condition: 'Usado - Como Nuevo',
-    originalPrice: 599990,
-    price: 449992,
-    description: '🔧 Cepillo industrial de 305mm. Perfecto estado de funcionamiento.',
-    features: [
-      'Ancho de cepillado 305mm',
-      'Motor 1650W en excelente estado',
-      'Sistema anti-rebote intacto',
-      'Base de hierro fundido'
-    ],
-    urgency: '🎯 Oferta especial contratistas',
-    ctaText: '¡CONTACTAR AHORA! →',
-    discount: '-25%',
-    image: nb2012Image
-  },
+  // {
+  //   id: 3,
+  //   code: '2012NB-M1',
+  //   name: 'Cepillo de Banco Makita 2012NB',
+  //   condition: 'Usado - Como Nuevo',
+  //   originalPrice: 599990,
+  //   price: 449992,
+  //   description: '🔧 Cepillo industrial de 305mm. Perfecto estado de funcionamiento.',
+  //   features: [
+  //     'Ancho de cepillado 305mm',
+  //     'Motor 1650W en excelente estado',
+  //     'Sistema anti-rebote intacto',
+  //     'Base de hierro fundido'
+  //   ],
+  //   urgency: '🎯 Oferta especial contratistas',
+  //   ctaText: '¡CONTACTAR AHORA! →',
+  //   discount: '-25%',
+  //   image: nb2012Image
+  // },
   {
     id: 4,
     code: 'GCM10X-B1',
@@ -124,82 +118,82 @@ export const tools: Tool[] = [
     discount: '-25%',
     image: rp1801Image
   },
-  {
-    id: 6,
-    code: 'PREF-M1',
-    name: 'SET PRENSA "F" PARA GUIA RIEL (2PZ)',
-    condition: 'Usado - Buen Estado',
-    originalPrice: 42863,
-    price: 30004,
-    description: '🔨 Set de prensas profesionales. Funcionamiento perfecto.',
-    features: [
-      'Set de 2 prensas tipo F',
-      'Mecanismo de ajuste suave',
-      'Sin deformaciones',
-      'Agarre firme'
-    ],
-    urgency: '✨ Complemento esencial',
-    ctaText: '¡AGREGAR AL SET! →',
-    discount: '-30%',
-    image: prensaFImage
-  },
-  {
-    id: 7,
-    code: 'GR19M-M1',
-    name: 'GUIA RIEL 1.9M MAKITA',
-    condition: 'Usado - Excelente Estado',
-    originalPrice: 62900,
-    price: 44030,
-    description: '📏 Guía riel profesional. Sin golpes ni deformaciones.',
-    features: [
-      'Longitud total 1.9m',
-      'Perfil recto y sin daños',
-      'Base antideslizante intacta',
-      'Conectores en buen estado'
-    ],
-    urgency: '🎯 Stock limitado',
-    ctaText: '¡COMPRAR AHORA! →',
-    discount: '-30%',
-    image: riel19mImage
-  },
-  {
-    id: 8,
-    code: 'GR10M-M1',
-    name: 'GUIA RIEL 1M MAKITA',
-    condition: 'Usado - Buen Estado',
-    originalPrice: 29990,
-    price: 20993,
-    description: '📏 Guía riel compacta. Perfecta para espacios reducidos.',
-    features: [
-      'Longitud 1m exacto',
-      'Sin deformaciones',
-      'Compatible con SP6000',
-      'Base antideslizante funcional'
-    ],
-    urgency: '💫 Complemento perfecto',
-    ctaText: '¡AGREGAR AL CARRITO! →',
-    discount: '-30%',
-    image: riel10mImage
-  },
-  {
-    id: 9,
-    code: 'ADJC-M1',
-    name: 'ADAPTADOR DE JUNTAS PARA GUIA CARRIL',
-    condition: 'Usado - Buen Estado',
-    originalPrice: 24923,
-    price: 17446,
-    description: '🔧 Adaptador para guías. Conexiones precisas.',
-    features: [
-      'Ajuste preciso mantenido',
-      'Sin desgaste visible',
-      'Material en buen estado',
-      'Compatible con guías Makita'
-    ],
-    urgency: '⚡ ¡Último disponible!',
-    ctaText: '¡RESERVAR YA! →',
-    discount: '-30%',
-    image: adaptadorImage
-  },
+  // {
+  //   id: 6,
+  //   code: 'PREF-M1',
+  //   name: 'SET PRENSA "F" PARA GUIA RIEL (2PZ)',
+  //   condition: 'Usado - Buen Estado',
+  //   originalPrice: 42863,
+  //   price: 30004,
+  //   description: '🔨 Set de prensas profesionales. Funcionamiento perfecto.',
+  //   features: [
+  //     'Set de 2 prensas tipo F',
+  //     'Mecanismo de ajuste suave',
+  //     'Sin deformaciones',
+  //     'Agarre firme'
+  //   ],
+  //   urgency: '✨ Complemento esencial',
+  //   ctaText: '¡AGREGAR AL SET! →',
+  //   discount: '-30%',
+  //   image: prensaFImage
+  // },
+  // {
+  //   id: 7,
+  //   code: 'GR19M-M1',
+  //   name: 'GUIA RIEL 1.9M MAKITA',
+  //   condition: 'Usado - Excelente Estado',
+  //   originalPrice: 62900,
+  //   price: 44030,
+  //   description: '📏 Guía riel profesional. Sin golpes ni deformaciones.',
+  //   features: [
+  //     'Longitud total 1.9m',
+  //     'Perfil recto y sin daños',
+  //     'Base antideslizante intacta',
+  //     'Conectores en buen estado'
+  //   ],
+  //   urgency: '🎯 Stock limitado',
+  //   ctaText: '¡COMPRAR AHORA! →',
+  //   discount: '-30%',
+  //   image: riel19mImage
+  // },
+  // {
+  //   id: 8,
+  //   code: 'GR10M-M1',
+  //   name: 'GUIA RIEL 1M MAKITA',
+  //   condition: 'Usado - Buen Estado',
+  //   originalPrice: 29990,
+  //   price: 20993,
+  //   description: '📏 Guía riel compacta. Perfecta para espacios reducidos.',
+  //   features: [
+  //     'Longitud 1m exacto',
+  //     'Sin deformaciones',
+  //     'Compatible con SP6000',
+  //     'Base antideslizante funcional'
+  //   ],
+  //   urgency: '💫 Complemento perfecto',
+  //   ctaText: '¡AGREGAR AL CARRITO! →',
+  //   discount: '-30%',
+  //   image: riel10mImage
+  // },
+  // {
+  //   id: 9,
+  //   code: 'ADJC-M1',
+  //   name: 'ADAPTADOR DE JUNTAS PARA GUIA CARRIL',
+  //   condition: 'Usado - Buen Estado',
+  //   originalPrice: 24923,
+  //   price: 17446,
+  //   description: '🔧 Adaptador para guías. Conexiones precisas.',
+  //   features: [
+  //     'Ajuste preciso mantenido',
+  //     'Sin desgaste visible',
+  //     'Material en buen estado',
+  //     'Compatible con guías Makita'
+  //   ],
+  //   urgency: '⚡ ¡Último disponible!',
+  //   ctaText: '¡RESERVAR YA! →',
+  //   discount: '-30%',
+  //   image: adaptadorImage
+  // },
   {
     id: 10,
     code: 'DS165-M1',
@@ -276,25 +270,25 @@ export const tools: Tool[] = [
     discount: '-30%',
     image: gst75eImage
   },
-  {
-    id: 14,
-    code: 'RDP2012-M1',
-    name: 'Recolector De Polvo Para Cepillo 2012NB',
-    condition: 'Usado - Buen Estado',
-    originalPrice: 34990,
-    price: 24493,
-    description: '🌪️ Recolector específico para cepillo 2012NB. Funcionamiento óptimo.',
-    features: [
-      'Ajuste perfecto con 2012NB',
-      'Sistema de succión eficiente',
-      'Conexiones en buen estado',
-      'Limpio y mantenido'
-    ],
-    urgency: '✨ ¡Complemento esencial!',
-    ctaText: '¡AGREGAR AL CARRITO! →',
-    discount: '-30%',
-    image: recolectorImage
-  },
+  // {
+  //   id: 14,
+  //   code: 'RDP2012-M1',
+  //   name: 'Recolector De Polvo Para Cepillo 2012NB',
+  //   condition: 'Usado - Buen Estado',
+  //   originalPrice: 34990,
+  //   price: 24493,
+  //   description: '🌪️ Recolector específico para cepillo 2012NB. Funcionamiento óptimo.',
+  //   features: [
+  //     'Ajuste perfecto con 2012NB',
+  //     'Sistema de succión eficiente',
+  //     'Conexiones en buen estado',
+  //     'Limpio y mantenido'
+  //   ],
+  //   urgency: '✨ ¡Complemento esencial!',
+  //   ctaText: '¡AGREGAR AL CARRITO! →',
+  //   discount: '-30%',
+  //   image: recolectorImage
+  // },
   {
     id: 15,
     code: 'SL300-I1',
