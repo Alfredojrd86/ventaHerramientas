@@ -1,5 +1,5 @@
 import mc1269Image from '../assets/images/1269-MC1.webp';
-import admImage from '../assets/images/ADM-MC1.webp';
+
 import bo5030Image from '../assets/images/BO5030-M1.png';
 import discoImage from '../assets/images/DS165-M1.webp';
 import fbr12Image from '../assets/images/FBR12-M1.webp';
@@ -11,8 +11,6 @@ import gcm10xImage from '../assets/images/GCM10X-B1.webp';
 import gst75eImage from '../assets/images/GST75E-B1.webp';
 import gts10jImage from '../assets/images/GTS10J-B1.webp';
 import k5Image from '../assets/images/K5-K1.jpg';
-import m3700Image from '../assets/images/M3700-M1.avif';
-import mrfImage from '../assets/images/MRF-M1.webp';
 import pf36Image from '../assets/images/PF36-I1.webp';
 import pst34Image from '../assets/images/PST34-I1.webp';
 import r3Image from '../assets/images/R3-K1.webp';
@@ -213,27 +211,9 @@ export const tools: Tool[] = [
     discount: '-30%',
     image: discoImage
   },
+
   {
     id: 11,
-    code: 'M3700-M1',
-    name: 'RECORTADORA MAKITA M3700',
-    condition: 'Usado - Excelente Estado',
-    originalPrice: 60000,
-    price: 42000,
-    description: '✨ Recortadora compacta 530W. Ideal para trabajos de precisión. Poco uso.',
-    features: [
-      'Potencia 530W funcionando perfectamente',
-      '35000 RPM estables',
-      'Base de aluminio sin desgaste',
-      'Motor en óptimas condiciones'
-    ],
-    urgency: '🔥 ¡Oferta especial!',
-    ctaText: '¡APROVECHAR AHORA! →',
-    discount: '-30%',
-    image: m3700Image
-  },
-  {
-    id: 12,
     code: 'BO5030-M1',
     name: 'Lijadora Excéntrica BO5030',
     condition: 'Usado - Buen Estado',
@@ -252,7 +232,7 @@ export const tools: Tool[] = [
     image: bo5030Image
   },
   {
-    id: 13,
+    id: 12,
     code: 'GST75E-B1',
     name: 'Sierra Caladora Bosch GST 75 E',
     condition: 'Usado - Excelente Estado',
@@ -290,7 +270,7 @@ export const tools: Tool[] = [
   //   image: recolectorImage
   // },
   {
-    id: 15,
+    id: 13,
     code: 'SL300-I1',
     name: 'Set Prensas Rápidas Irwin SL300',
     condition: 'Usado - Excelente Estado',
@@ -309,7 +289,7 @@ export const tools: Tool[] = [
     image: sl300Image
   },
   {
-    id: 16,
+    id: 14,
     code: 'PF36-I1',
     name: 'Set Prensas Irwin Tipo F 36"',
     condition: 'Usado - Buen Estado',
@@ -328,7 +308,7 @@ export const tools: Tool[] = [
     image: pf36Image
   },
   {
-    id: 17,
+    id: 15,
     code: 'R3-K1',
     name: 'Guía de perforación Kreg R3',
     condition: 'Usado - Como Nuevo',
@@ -347,7 +327,7 @@ export const tools: Tool[] = [
     image: r3Image
   },
   {
-    id: 18,
+    id: 16,
     code: 'K5-K1',
     name: 'Plantilla Kreg Jig K5',
     condition: 'Usado - Buen Estado',
@@ -366,7 +346,7 @@ export const tools: Tool[] = [
     image: k5Image
   },
   {
-    id: 19,
+    id: 17,
     code: '1269-MC1',
     name: 'Kit de guía circular Milescraft 1269',
     condition: 'Usado - Excelente Estado',
@@ -384,27 +364,9 @@ export const tools: Tool[] = [
     discount: '-30%',
     image: mc1269Image
   },
+
   {
-    id: 20,
-    code: 'ADM-MC1',
-    name: 'Soporte de taladro AccuDrillMate',
-    condition: 'Usado - Buen Estado',
-    originalPrice: 32990,
-    price: 23093,
-    description: '🔨 Soporte de precisión para taladro. Estabilidad perfecta.',
-    features: [
-      'Base estable sin daños',
-      'Sistema de ajuste preciso',
-      'Columna recta y firme',
-      'Mecanismo suave'
-    ],
-    urgency: '⚡ ¡Última unidad!',
-    ctaText: '¡RESERVAR YA! →',
-    discount: '-30%',
-    image: admImage
-  },
-  {
-    id: 21,
+    id: 18,
     code: 'FBR12-M1',
     name: 'Fresa Borde Redondo 1/2',
     condition: 'Nuevo',
@@ -423,7 +385,7 @@ export const tools: Tool[] = [
     image: fbr12Image
   },
   {
-    id: 22,
+    id: 19,
     code: 'FTP-M1',
     name: 'Set Fresas Tipo T Para Pernos',
     condition: 'Nuevo',
@@ -442,7 +404,7 @@ export const tools: Tool[] = [
     image: ftpImage
   },
   {
-    id: 23,
+    id: 20,
     code: 'FM45-M1',
     name: 'Fresa Madera 45° Chanfle',
     condition: 'Nuevo',
@@ -461,7 +423,7 @@ export const tools: Tool[] = [
     image: fm45Image
   },
   {
-    id: 24,
+    id: 21,
     code: 'FC63-M1',
     name: 'Fresa Copiadora 63mm',
     condition: 'Usado - Buen Estado',
@@ -480,7 +442,7 @@ export const tools: Tool[] = [
     image: fc63Image
   },
   {
-    id: 25,
+    id: 22,
     code: 'FC14-M1',
     name: 'Fresa Copiadora 1/4',
     condition: 'Usado - Buen Estado',
@@ -498,27 +460,9 @@ export const tools: Tool[] = [
     discount: '0%',
     image: fc14Image
   },
+
   {
-    id: 26,
-    code: 'MRF-M1',
-    name: 'Mesa Router Fresadora',
-    condition: 'Usado - Buen Estado',
-    originalPrice: 10400,
-    price: 10400,
-    description: '🔧 Mesa multifuncional para router. Nueva en caja.',
-    features: [
-      'Placa de montaje universal',
-      'Guías ajustables',
-      'Sistema de fijación seguro',
-      'Ideal para trabajos precisos'
-    ],
-    urgency: '🎯 Usado pero en excelente estado',
-    ctaText: '¡RESERVAR AHORA! →',
-    discount: '0%',
-    image: mrfImage
-  },
-  {
-    id: 27,
+    id: 23,
     code: 'PST34-I1',
     name: 'Set Prensas Sargento Tubo 3/4',
     condition: 'Usado - Buen Estado',
