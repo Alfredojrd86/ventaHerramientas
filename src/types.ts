@@ -11,4 +11,5 @@ export interface Tool {
   ctaText: string;
   discount: string;
   image: string;
+  stock: number;
 }
