@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HeroSection from './components/HeroSection';
 import { CartProvider } from './context/CartContext';
 import CheckoutPage from './components/CheckoutPage';
+import EnhancedCheckoutPage from './components/EnhancedCheckoutPage';
 
 // Solo importar los componentes que vas a usar
 import StaticProductGrid from './components/StaticProductGrid';
@@ -24,17 +25,18 @@ function Home() {
   );
 }
 
-// App SIMPLE - Cambio mínimo
+// App con flujo híbrido mejorado
 function App() {
   return (
     <Router>
       <CartProvider>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/checkout" element={<EnhancedCheckoutPage />} />
+          <Route path="/checkout-simple" element={<CheckoutPage />} />
         </Routes>
         
-        {/* REEMPLAZA <Cart /> con <EnhancedCart /> */}
+        {/* Carrito mejorado con botón inteligente */}
         <EnhancedCart />
       </CartProvider>
     </Router>
