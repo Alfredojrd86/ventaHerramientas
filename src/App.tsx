@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Banner from './components/Banner';
-import Header from './components/Header';
+import HeroSection from './components/HeroSection';
 import { CartProvider } from './context/CartContext';
 import CheckoutPage from './components/CheckoutPage';
 
@@ -8,23 +7,16 @@ import CheckoutPage from './components/CheckoutPage';
 import StaticProductGrid from './components/StaticProductGrid';
 import EnhancedCart from './components/EnhancedCart';
 
-// Componente Home SIMPLE - Solo reemplaza tu grid actual
+// Componente Home con nueva sección Hero
 function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Tu header actual */}
-      <div className="bg-white shadow-sm">
-        <div className="container mx-auto px-4 py-4">
-          <Header />
-        </div>
-      </div>
+      {/* Nueva sección Hero que reemplaza header y banner */}
+      <HeroSection />
 
       <div className="container mx-auto px-4 py-8">
-        {/* Tu banner actual */}
-        <Banner />
-
-        {/* REEMPLAZA tu grid actual con esto: */}
-        <div className="mt-8">
+        {/* Grid de productos con ID para el scroll suave */}
+        <div id="products-section" className="mt-8">
           <StaticProductGrid />
         </div>
       </div>
