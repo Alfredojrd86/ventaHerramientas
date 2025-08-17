@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { TenantConfig, DEFAULT_TENANT_CONFIG } from '../types/tenant';
+import { TenantService } from '../services/tenantService';
 
 interface TenantContextType {
   tenant: TenantConfig;
@@ -36,13 +37,26 @@ export function TenantProvider({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Simular carga de configuración del tenant
-  // En producción, esto vendría de una API
+  // Cargar configuración real del tenant desde Supabase
   const loadTenantConfig = async (slug: string): Promise<TenantConfig> => {
-    // Por ahora, devolvemos configuración de demo basada en tu app actual
-    const demoConfig: TenantConfig = {
-      id: 'carpinteria-demo',
-      slug: 'carpinteria',
+    try {
+      // Intentar cargar desde Supabase
+      const tenantData = await TenantService.getTenantBySlug(slug);
+      
+      if (tenantData) {
+        return tenantData;
+      }
+      
+      // Si no se encuentra, usar el tenant por defecto con ID real
+      console.warn(`Tenant '${slug}' no encontrado, usando configuración por defecto`);
+    } catch (error) {
+      console.warn('Error loading tenant from Supabase, using default config:', error);
+    }
+    
+    // Configuración de fallback con el ID real de tu tenant
+    const fallbackConfig: TenantConfig = {
+      id: '7eac9d78-ebe1-4a6e-82b6-001d34badc25', // Tu tenant ID real
+      slug: slug,
       domain: undefined,
       status: 'active',
       plan: 'professional',
@@ -139,7 +153,7 @@ export function TenantProvider({
       ownerId: 'demo-owner',
     };
 
-    return demoConfig;
+    return fallbackConfig;
   };
 
   // Cargar configuración del tenant al montar
@@ -154,8 +168,17 @@ export function TenantProvider({
           setError(null);
         })
         .catch(err => {
-          console.error('Error loading tenant config:', err);
-          setError('Error al cargar la configuración');
+          console.warn('Error loading tenant config, using fallback:', err);
+          // En caso de error, usar configuración de fallback para evitar pantalla en blanco
+          setTenant({
+            ...DEFAULT_TENANT_CONFIG,
+            id: '7eac9d78-ebe1-4a6e-82b6-001d34badc25',
+            slug: tenantSlug,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+            ownerId: 'demo-owner',
+          });
+          setError(null); // No mostrar error al usuario, usar fallback
         })
         .finally(() => {
           setIsLoading(false);
@@ -254,6 +277,7 @@ export function useTenantConfig() {
   const { tenant } = useTenant();
   
   return {
+    tenantConfig: tenant, // Agregar acceso completo al tenant
     branding: tenant.branding,
     business: tenant.business,
     features: tenant.features,

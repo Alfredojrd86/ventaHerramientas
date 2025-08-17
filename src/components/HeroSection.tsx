@@ -2,7 +2,7 @@ import { ShoppingCartIcon, CheckCircleIcon, TruckIcon, ShieldCheckIcon } from '@
 import { useTenantConfig } from '../contexts/TenantContext';
 
 export default function HeroSection() {
-  const { business, branding, product, payment } = useTenantConfig();
+  const { business, product, payment } = useTenantConfig();
   const scrollToProducts = () => {
     const productsSection = document.getElementById('products-section');
     productsSection?.scrollIntoView({ behavior: 'smooth' });

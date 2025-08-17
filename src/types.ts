@@ -1,5 +1,5 @@
 export interface Tool {
-  id: number;
+  id: string; // Cambiar de number a string para soportar UUIDs
   code: string;
   name: string;
   condition: string;

@@ -2,13 +2,19 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HeroSection from './components/HeroSection';
 import { CartProvider } from './context/CartContext';
 import { TenantProvider } from './contexts/TenantContext';
+import { AuthProvider } from './contexts/AuthContext';
 import CheckoutPage from './components/CheckoutPage';
 import EnhancedCheckoutPage from './components/EnhancedCheckoutPage';
 
 // Solo importar los componentes que vas a usar
-import GenericProductGrid from './components/GenericProductGrid';
+import ProductGrid from './components/ProductGrid';
 import FloatingCartIcon from './components/FloatingCartIcon';
 import AdminDashboard from './components/admin/AdminDashboard';
+import LoginPage from './components/auth/LoginPage';
+import ProtectedRoute from './components/auth/ProtectedRoute';
+import DebugInfo from './components/DebugInfo';
+import DiagnosticPanel from './components/DiagnosticPanel';
+
 
 // Componente Home con nueva sección Hero
 function Home() {
@@ -21,40 +27,56 @@ function Home() {
         {/* Enlace discreto al admin (solo para demo) */}
         <div className="mb-4 text-center">
           <a 
-            href="/admin" 
+            href="/login" 
             className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-blue-600 transition-colors"
           >
-            🏢 Dashboard de Administración
+            🔐 Acceso Administrativo
           </a>
         </div>
         
-        {/* Grid de productos con ID para el scroll suave */}
+        {/* Grid de productos principal */}
         <div id="products-section" className="mt-8">
-          <GenericProductGrid />
+          <ProductGrid />
         </div>
       </div>
+      
+      {/* Panel de diagnóstico mejorado */}
+      <DiagnosticPanel />
     </div>
   );
 }
 
-// App con flujo híbrido mejorado + Multi-tenant
+// App con flujo híbrido mejorado + Multi-tenant + Auth
 function App() {
   return (
-    <TenantProvider tenantSlug="carpinteria">
-      <Router>
-        <CartProvider>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/checkout" element={<EnhancedCheckoutPage />} />
-            <Route path="/checkout-simple" element={<CheckoutPage />} />
-          </Routes>
-          
-          {/* Icono Flotante del Carrito */}
-          <FloatingCartIcon />
-        </CartProvider>
-      </Router>
-    </TenantProvider>
+    <AuthProvider>
+      <TenantProvider tenantSlug="carpinteria">
+        <Router>
+          <CartProvider>
+            <Routes>
+              {/* Rutas públicas */}
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/checkout" element={<EnhancedCheckoutPage />} />
+              <Route path="/checkout-simple" element={<CheckoutPage />} />
+              
+              {/* Rutas protegidas */}
+              <Route 
+                path="/admin" 
+                element={
+                  <ProtectedRoute requireAdmin={true}>
+                    <AdminDashboard />
+                  </ProtectedRoute>
+                } 
+              />
+            </Routes>
+            
+            {/* Icono Flotante del Carrito */}
+            <FloatingCartIcon />
+          </CartProvider>
+        </Router>
+      </TenantProvider>
+    </AuthProvider>
   );
 }
 

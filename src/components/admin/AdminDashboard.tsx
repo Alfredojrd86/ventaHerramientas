@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { TenantConfig } from '../../types/tenant';
+import { useAuth } from '../../contexts/AuthContext';
 import TenantList from './TenantList';
 import TenantEditor from './TenantEditor';
 import DashboardStats from './DashboardStats';
 import TenantPreview from './TenantPreview';
+import ProductManager from './ProductManager';
+import SupabaseSetup from './SupabaseSetup';
 
 // Simulación de datos de tenants para el demo
 const DEMO_TENANTS: TenantConfig[] = [
@@ -143,11 +146,12 @@ const DEMO_TENANTS: TenantConfig[] = [
   }
 ];
 
-type DashboardView = 'overview' | 'tenants' | 'create' | 'edit' | 'preview';
+type DashboardView = 'overview' | 'tenants' | 'create' | 'edit' | 'preview' | 'products' | 'setup';
 
 export default function AdminDashboard() {
+  const { user, logout } = useAuth();
   const [tenants, setTenants] = useState<TenantConfig[]>(DEMO_TENANTS);
-  const [currentView, setCurrentView] = useState<DashboardView>('overview');
+  const [currentView, setCurrentView] = useState<DashboardView>('setup');
   const [selectedTenant, setSelectedTenant] = useState<TenantConfig | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -254,6 +258,17 @@ export default function AdminDashboard() {
           />
         ) : null;
       
+      case 'products': {
+        // Usar el tenant ID real
+        const tenantId = '7eac9d78-ebe1-4a6e-82b6-001d34badc25';
+        return (
+          <ProductManager tenantId={tenantId} />
+        );
+      }
+      
+      case 'setup':
+        return <SupabaseSetup />;
+      
       default:
         return <DashboardStats tenants={tenants} />;
     }
@@ -298,6 +313,28 @@ export default function AdminDashboard() {
               <div className="text-sm text-gray-500">
                 {tenants.length} tenant{tenants.length !== 1 ? 's' : ''}
               </div>
+
+              {/* User Menu */}
+              <div className="flex items-center gap-3 pl-4 border-l border-gray-200">
+                <div className="text-right">
+                  <div className="text-sm font-medium text-gray-900">
+                    {user?.avatar} {user?.name}
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    {user?.role === 'super_admin' ? 'Super Administrador' : 
+                     user?.role === 'admin' ? 'Administrador' : 'Dueño de Tienda'}
+                  </div>
+                </div>
+                <button
+                  onClick={logout}
+                  className="text-gray-400 hover:text-gray-600 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                  title="Cerrar sesión"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -308,6 +345,8 @@ export default function AdminDashboard() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex space-x-8">
             {[
+              { key: 'setup', label: '⚙️ Configurar', icon: '⚙️' },
+              { key: 'products', label: '🔧 Productos', icon: '🔧' },
               { key: 'overview', label: '📊 Resumen', icon: '📊' },
               { key: 'tenants', label: '🏪 Tenants', icon: '🏪' },
             ].map((item) => (
