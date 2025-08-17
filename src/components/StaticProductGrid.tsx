@@ -6,10 +6,14 @@ import StaticFilterBar from './StaticFilterBar';
 import EnhancedToolCard from './EnhancedToolCard';
 
 interface StaticProductGridProps {
+  onAddToCart?: (tool: Tool) => void;
   className?: string;
 }
 
-const StaticProductGrid: React.FC<StaticProductGridProps> = ({ className = '' }) => {
+const StaticProductGrid: React.FC<StaticProductGridProps> = ({ 
+  onAddToCart,
+  className = '' 
+}) => {
   const [quickViewTool, setQuickViewTool] = useState<Tool | null>(null);
   
   const {
@@ -78,6 +82,7 @@ const StaticProductGrid: React.FC<StaticProductGridProps> = ({ className = '' })
               key={tool.id}
               tool={tool}
               onQuickView={handleQuickView}
+
               showUrgency={true}
               showSocialProof={true}
             />

@@ -1,5 +1,4 @@
 import mc1269Image from '../assets/images/1269-MC1.webp';
-
 import bo5030Image from '../assets/images/BO5030-M1.png';
 import discoImage from '../assets/images/DS165-M1.webp';
 import fbr12Image from '../assets/images/FBR12-M1.webp';
@@ -19,13 +18,12 @@ import sl300Image from '../assets/images/SL300-I1.webp';
 import sp6000Image from '../assets/images/SP6000-M1.webp';
 import { Tool } from '../types';
 
-
 export const tools: Tool[] = [
   {
     id: 1,
     code: 'SP6000-M1',
     name: 'Makita SP6000 Sierra de Inmersión Profesional',
-    condition: 'Usado - Excelente Estado',
+    condition: 'Usado - Buen Estado',
     originalPrice: 549891,
     price: 412418,
     description: '✨ Sierra de inmersión profesional para cortes de alta precisión. Estado impecable.',
@@ -38,13 +36,14 @@ export const tools: Tool[] = [
     urgency: '🔥 Precio especial por tiempo limitado',
     ctaText: '¡RESERVAR AHORA! →',
     discount: '-25%',
-    image: sp6000Image
+    image: sp6000Image,
+    stock: 1
   },
   {
     id: 2,
     code: 'GTS10J-B1',
     name: 'SIERRA DE BANCO BOSCH GTS-10J',
-    condition: 'Usado - Excelente Estado',
+    condition: 'Usado - Buen Estado',
     originalPrice: 843990,
     price: 632992,
     description: '💪 Sierra de banco profesional de 1800W. Mínimas horas de uso.',
@@ -57,32 +56,14 @@ export const tools: Tool[] = [
     urgency: '⚡ Precio especial para profesionales',
     ctaText: '¡COMPRAR AHORA! →',
     discount: '-25%',
-    image: gts10jImage
+    image: gts10jImage,
+    stock: 1
   },
-  // {
-  //   id: 3,
-  //   code: '2012NB-M1',
-  //   name: 'Cepillo de Banco Makita 2012NB',
-  //   condition: 'Usado - Como Nuevo',
-  //   originalPrice: 599990,
-  //   price: 449992,
-  //   description: '🔧 Cepillo industrial de 305mm. Perfecto estado de funcionamiento.',
-  //   features: [
-  //     'Ancho de cepillado 305mm',
-  //     'Motor 1650W en excelente estado',
-  //     'Sistema anti-rebote intacto',
-  //     'Base de hierro fundido'
-  //   ],
-  //   urgency: '🎯 Oferta especial contratistas',
-  //   ctaText: '¡CONTACTAR AHORA! →',
-  //   discount: '-25%',
-  //   image: nb2012Image
-  // },
   {
     id: 4,
     code: 'GCM10X-B1',
     name: 'Sierra Ingleteadora Bosch GCM 10 X',
-    condition: 'Usado - Excelente Estado',
+    condition: 'Usado - Buen Estado',
     originalPrice: 502210,
     price: 376657,
     description: '📐 Ingleteadora profesional de 1700W. Precisión mantenida.',
@@ -95,13 +76,14 @@ export const tools: Tool[] = [
     urgency: '💫 Última unidad disponible',
     ctaText: '¡RESERVAR YA! →',
     discount: '-25%',
-    image: gcm10xImage
+    image: gcm10xImage,
+    stock: 1
   },
   {
     id: 5,
     code: 'RP1801-M1',
     name: 'FRESADORA MAKITA RP1801',
-    condition: 'Usado - Excelente Estado',
+    condition: 'Usado - Buen Estado',
     originalPrice: 408891,
     price: 306668,
     description: '🎯 Fresadora profesional 1650W. Mantenida con cuidado profesional.',
@@ -114,84 +96,9 @@ export const tools: Tool[] = [
     urgency: '🕒 Precio válido esta semana',
     ctaText: '¡APROVECHAR OFERTA! →',
     discount: '-25%',
-    image: rp1801Image
+    image: rp1801Image,
+    stock: 1
   },
-  // {
-  //   id: 6,
-  //   code: 'PREF-M1',
-  //   name: 'SET PRENSA "F" PARA GUIA RIEL (2PZ)',
-  //   condition: 'Usado - Buen Estado',
-  //   originalPrice: 42863,
-  //   price: 30004,
-  //   description: '🔨 Set de prensas profesionales. Funcionamiento perfecto.',
-  //   features: [
-  //     'Set de 2 prensas tipo F',
-  //     'Mecanismo de ajuste suave',
-  //     'Sin deformaciones',
-  //     'Agarre firme'
-  //   ],
-  //   urgency: '✨ Complemento esencial',
-  //   ctaText: '¡AGREGAR AL SET! →',
-  //   discount: '-30%',
-  //   image: prensaFImage
-  // },
-  // {
-  //   id: 7,
-  //   code: 'GR19M-M1',
-  //   name: 'GUIA RIEL 1.9M MAKITA',
-  //   condition: 'Usado - Excelente Estado',
-  //   originalPrice: 62900,
-  //   price: 44030,
-  //   description: '📏 Guía riel profesional. Sin golpes ni deformaciones.',
-  //   features: [
-  //     'Longitud total 1.9m',
-  //     'Perfil recto y sin daños',
-  //     'Base antideslizante intacta',
-  //     'Conectores en buen estado'
-  //   ],
-  //   urgency: '🎯 Stock limitado',
-  //   ctaText: '¡COMPRAR AHORA! →',
-  //   discount: '-30%',
-  //   image: riel19mImage
-  // },
-  // {
-  //   id: 8,
-  //   code: 'GR10M-M1',
-  //   name: 'GUIA RIEL 1M MAKITA',
-  //   condition: 'Usado - Buen Estado',
-  //   originalPrice: 29990,
-  //   price: 20993,
-  //   description: '📏 Guía riel compacta. Perfecta para espacios reducidos.',
-  //   features: [
-  //     'Longitud 1m exacto',
-  //     'Sin deformaciones',
-  //     'Compatible con SP6000',
-  //     'Base antideslizante funcional'
-  //   ],
-  //   urgency: '💫 Complemento perfecto',
-  //   ctaText: '¡AGREGAR AL CARRITO! →',
-  //   discount: '-30%',
-  //   image: riel10mImage
-  // },
-  // {
-  //   id: 9,
-  //   code: 'ADJC-M1',
-  //   name: 'ADAPTADOR DE JUNTAS PARA GUIA CARRIL',
-  //   condition: 'Usado - Buen Estado',
-  //   originalPrice: 24923,
-  //   price: 17446,
-  //   description: '🔧 Adaptador para guías. Conexiones precisas.',
-  //   features: [
-  //     'Ajuste preciso mantenido',
-  //     'Sin desgaste visible',
-  //     'Material en buen estado',
-  //     'Compatible con guías Makita'
-  //   ],
-  //   urgency: '⚡ ¡Último disponible!',
-  //   ctaText: '¡RESERVAR YA! →',
-  //   discount: '-30%',
-  //   image: adaptadorImage
-  // },
   {
     id: 10,
     code: 'DS165-M1',
@@ -199,19 +106,19 @@ export const tools: Tool[] = [
     condition: 'Nuevo',
     originalPrice: 55890,
     price: 52000,
-    description: '⚡ Disco profesional 56 dientes. Afilado y en excelente estado.',
+    description: '⚡ Disco profesional 56 dientes. Nuevo sin usar.',
     features: [
       'Dientes de carburo intactos',
       'Compatible con SP6000',
-      'Corte preciso mantenido',
-      'Sin desgaste visible'
+      'Corte preciso garantizado',
+      'Sin desgaste - completamente nuevo'
     ],
     urgency: '🎯 ¡Stock limitado!',
     ctaText: '¡COMPRAR AHORA! →',
-    discount: '-30%',
-    image: discoImage
+    discount: '-7%',
+    image: discoImage,
+    stock: 1
   },
-
   {
     id: 11,
     code: 'BO5030-M1',
@@ -229,18 +136,19 @@ export const tools: Tool[] = [
     urgency: '⭐ ¡Precio especial!',
     ctaText: '¡COMPRAR YA! →',
     discount: '-30%',
-    image: bo5030Image
+    image: bo5030Image,
+    stock: 1
   },
   {
     id: 12,
     code: 'GST75E-B1',
     name: 'Sierra Caladora Bosch GST 75 E',
-    condition: 'Usado - Excelente Estado',
+    condition: 'Usado - Buen Estado',
     originalPrice: 128350,
     price: 89845,
     description: '⚡ Caladora profesional 710W. Mantenida por experto.',
     features: [
-      'Motor 710W en excelente estado',
+      'Motor 710W en buen estado',
       'Control de velocidad preciso',
       'Sistema pendular ajustado',
       'Cambio de hoja sin desgaste'
@@ -248,32 +156,14 @@ export const tools: Tool[] = [
     urgency: '🎯 ¡Últimas unidades!',
     ctaText: '¡RESERVAR AHORA! →',
     discount: '-30%',
-    image: gst75eImage
+    image: gst75eImage,
+    stock: 1
   },
-  // {
-  //   id: 14,
-  //   code: 'RDP2012-M1',
-  //   name: 'Recolector De Polvo Para Cepillo 2012NB',
-  //   condition: 'Usado - Buen Estado',
-  //   originalPrice: 34990,
-  //   price: 24493,
-  //   description: '🌪️ Recolector específico para cepillo 2012NB. Funcionamiento óptimo.',
-  //   features: [
-  //     'Ajuste perfecto con 2012NB',
-  //     'Sistema de succión eficiente',
-  //     'Conexiones en buen estado',
-  //     'Limpio y mantenido'
-  //   ],
-  //   urgency: '✨ ¡Complemento esencial!',
-  //   ctaText: '¡AGREGAR AL CARRITO! →',
-  //   discount: '-30%',
-  //   image: recolectorImage
-  // },
   {
     id: 13,
     code: 'SL300-I1',
     name: 'Set Prensas Rápidas Irwin SL300',
-    condition: 'Usado - Excelente Estado',
+    condition: 'Usado - Buen Estado',
     originalPrice: 56760,
     price: 39732,
     description: '🔧 Set de 4 prensas rápidas de 24". Mecanismos perfectos.',
@@ -286,7 +176,8 @@ export const tools: Tool[] = [
     urgency: '💪 ¡Set completo!',
     ctaText: '¡COMPRAR SET! →',
     discount: '-30%',
-    image: sl300Image
+    image: sl300Image,
+    stock: 2
   },
   {
     id: 14,
@@ -305,13 +196,14 @@ export const tools: Tool[] = [
     urgency: '🎯 ¡Oferta especial!',
     ctaText: '¡COMPRAR AHORA! →',
     discount: '-30%',
-    image: pf36Image
+    image: pf36Image,
+    stock: 3
   },
   {
     id: 15,
     code: 'R3-K1',
     name: 'Guía de perforación Kreg R3',
-    condition: 'Usado - Como Nuevo',
+    condition: 'Usado - Buen Estado',
     originalPrice: 43120,
     price: 30184,
     description: '🎯 Sistema de uniones Kreg R3. Precisión mantenida.',
@@ -324,7 +216,8 @@ export const tools: Tool[] = [
     urgency: '⚡ ¡Stock limitado!',
     ctaText: '¡RESERVAR YA! →',
     discount: '-30%',
-    image: r3Image
+    image: r3Image,
+    stock: 1
   },
   {
     id: 16,
@@ -343,13 +236,14 @@ export const tools: Tool[] = [
     urgency: '✨ ¡Oportunidad única!',
     ctaText: '¡APROVECHAR AHORA! →',
     discount: '-30%',
-    image: k5Image
+    image: k5Image,
+    stock: 1
   },
   {
     id: 17,
     code: '1269-MC1',
     name: 'Kit de guía circular Milescraft 1269',
-    condition: 'Usado - Excelente Estado',
+    condition: 'Usado - Buen Estado',
     originalPrice: 65890,
     price: 46123,
     description: '📏 Kit completo para cortes circulares. Como nuevo.',
@@ -362,65 +256,68 @@ export const tools: Tool[] = [
     urgency: '🎯 ¡Precio especial!',
     ctaText: '¡COMPRAR AHORA! →',
     discount: '-30%',
-    image: mc1269Image
+    image: mc1269Image,
+    stock: 1
   },
-
   {
     id: 18,
     code: 'FBR12-M1',
     name: 'Fresa Borde Redondo 1/2',
-    condition: 'Nuevo',
+    condition: 'Usado - Buen Estado',
     originalPrice: 33990,
-    price: 33990,
-    description: '🔄 Fresa profesional para borde redondo. Nueva sin uso.',
+    price: 25000,
+    description: '🔄 Fresa profesional para borde redondo. Excelente estado.',
     features: [
       'Toma de 1/2 pulgada',
       'Filo de carburo premium',
       'Alta precisión de corte',
       'Para trabajos profesionales'
     ],
-    urgency: '✨ ¡Nueva en caja!',
+    urgency: '✨ ¡Excelente estado!',
     ctaText: '¡COMPRAR AHORA! →',
-    discount: '0%',
-    image: fbr12Image
+    discount: '-26%',
+    image: fbr12Image,
+    stock: 1
   },
   {
     id: 19,
     code: 'FTP-M1',
     name: 'Set Fresas Tipo T Para Pernos',
-    condition: 'Nuevo',
+    condition: 'Usado - Buen Estado',
     originalPrice: 11000,
-    price: 11000,
-    description: '🔨 Set de 3 fresas tipo T para anclajes. Nuevas.',
+    price: 8000,
+    description: '🔨 Set de 3 fresas tipo T para anclajes. Excelente estado.',
     features: [
       'Set de 3 medidas diferentes',
       'Toma de 1/2 pulgada',
       'Ideal para anclajes',
-      'Filos de carburo nuevos'
+      'Filos de carburo en buen estado'
     ],
-    urgency: '🎯 ¡Set completo nuevo!',
+    urgency: '🎯 ¡Set completo!',
     ctaText: '¡RESERVAR SET! →',
-    discount: '0%',
-    image: ftpImage
+    discount: '-27%',
+    image: ftpImage,
+    stock: 1
   },
   {
     id: 20,
     code: 'FM45-M1',
     name: 'Fresa Madera 45° Chanfle',
-    condition: 'Nuevo',
+    condition: 'Usado - Buen Estado',
     originalPrice: 9800,
-    price: 9800,
-    description: '📐 Fresa para chanfles a 45 grados. Nueva en empaque.',
+    price: 7000,
+    description: '📐 Fresa para chanfles a 45 grados. Excelente estado.',
     features: [
       'Ángulo preciso de 45°',
       'Toma de 1/2 pulgada',
       'Carburo de alta calidad',
       'Corte limpio garantizado'
     ],
-    urgency: '⚡ ¡Nueva disponible!',
+    urgency: '⚡ ¡Excelente estado!',
     ctaText: '¡COMPRAR YA! →',
-    discount: '0%',
-    image: fm45Image
+    discount: '-29%',
+    image: fm45Image,
+    stock: 1
   },
   {
     id: 21,
@@ -428,18 +325,19 @@ export const tools: Tool[] = [
     name: 'Fresa Copiadora 63mm',
     condition: 'Usado - Buen Estado',
     originalPrice: 13100,
-    price: 13100,
-    description: '🔄 Fresa copiadora con doble rodamiento. Nueva.',
+    price: 10000,
+    description: '🔄 Fresa copiadora con doble rodamiento. Excelente estado.',
     features: [
       'Diámetro de corte 63mm',
       'Doble rodamiento sellado',
       'Toma de 1/2 pulgada',
       'Máxima precisión'
     ],
-    urgency: '✨ Usado pero en excelente estado',
+    urgency: '✨ Excelente estado',
     ctaText: '¡AGREGAR AL CARRO! →',
-    discount: '0%',
-    image: fc63Image
+    discount: '-24%',
+    image: fc63Image,
+    stock: 1
   },
   {
     id: 22,
@@ -447,37 +345,40 @@ export const tools: Tool[] = [
     name: 'Fresa Copiadora 1/4',
     condition: 'Usado - Buen Estado',
     originalPrice: 11000,
-    price: 11000,
-    description: '🛠️ Fresa copiadora profesional. Nueva en caja.',
+    price: 8500,
+    description: '🛠️ Fresa copiadora profesional. Excelente estado.',
     features: [
       'Vástago de 1/4 pulgada',
       'Rodamiento de precisión',
       'Carburo de primera calidad',
       'Ideal trabajos finos'
     ],
-    urgency: '💫 ¡Stock disponible!',
+    urgency: '💫 ¡Excelente estado!',
     ctaText: '¡COMPRAR AHORA! →',
-    discount: '0%',
-    image: fc14Image
+    discount: '-23%',
+    image: fc14Image,
+    stock: 1
   },
-
   {
     id: 23,
     code: 'PST34-I1',
     name: 'Set Prensas Sargento Tubo 3/4',
     condition: 'Usado - Buen Estado',
     originalPrice: 28000,
-    price: 28000,
-    description: '🔨 Set de 4 prensas sargento profesionales. Nuevas.',
+    price: 22000,
+    description: '🔨 Set de 4 prensas sargento profesionales. Excelente estado.',
     features: [
       'Set de 4 prensas completas',
       'Tubo de 3/4 pulgada',
       'Sistema de ajuste rápido',
       'Acabado anticorrosivo'
     ],
-    urgency: '⭐ ¡Set usado',
+    urgency: '⭐ ¡Set completo!',
     ctaText: '¡COMPRAR SET! →',
-    discount: '0%',
-    image: pst34Image
+    discount: '-21%',
+    image: pst34Image,
+    stock: 2
   }
 ];
+
+// Para aplicar estos cambios, reemplaza el contenido de src/data/tools.ts

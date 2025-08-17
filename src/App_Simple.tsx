@@ -1,51 +1,37 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Banner from './components/Banner';
-import Header from './components/Header';
-import { CartProvider } from './context/CartContext';
-import CheckoutPage from './components/CheckoutPage';
+import React from 'react';
 
-// Solo importar los componentes que vas a usar
-import StaticProductGrid from './components/StaticProductGrid';
-import EnhancedCart from './components/EnhancedCart';
-
-// Componente Home SIMPLE - Solo reemplaza tu grid actual
-function Home() {
+function App() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Tu header actual */}
-      <div className="bg-white shadow-sm">
-        <div className="container mx-auto px-4 py-4">
-          <Header />
-        </div>
-      </div>
-
-      <div className="container mx-auto px-4 py-8">
-        {/* Tu banner actual */}
-        <Banner />
-
-        {/* REEMPLAZA tu grid actual con esto: */}
-        <div className="mt-8">
-          <StaticProductGrid />
+    <div style={{ padding: '20px', textAlign: 'center' }}>
+      <h1 style={{ color: 'blue', fontSize: '32px' }}>
+        🛠️ Venta de Herramientas
+      </h1>
+      <p style={{ color: 'gray', marginTop: '16px' }}>
+        La aplicación está funcionando correctamente
+      </p>
+      <div style={{ marginTop: '32px' }}>
+        <div style={{ 
+          backgroundColor: 'white', 
+          padding: '24px', 
+          borderRadius: '8px', 
+          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+          maxWidth: '400px',
+          margin: '0 auto'
+        }}>
+          <h2 style={{ fontSize: '20px', marginBottom: '16px' }}>Estado del Sistema</h2>
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+              <span>React:</span>
+              <span style={{ color: 'green' }}>✅ Funcionando</span>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+              <span>Vite:</span>
+              <span style={{ color: 'green' }}>✅ Funcionando</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  );
-}
-
-// App SIMPLE - Cambio mínimo
-function App() {
-  return (
-    <Router>
-      <CartProvider>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-        </Routes>
-        
-        {/* REEMPLAZA <Cart /> con <EnhancedCart /> */}
-        <EnhancedCart />
-      </CartProvider>
-    </Router>
   );
 }
 
