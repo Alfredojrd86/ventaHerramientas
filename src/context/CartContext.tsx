@@ -12,6 +12,7 @@ interface CartContextType {
   updateQuantity: (toolId: string, quantity: number) => void;
   clearCart: () => void;
   getTotalPrice: () => number;
+  getTotalItems: () => number;
   isInCart: (toolId: string) => boolean;
 }
 
@@ -39,10 +40,13 @@ export function CartProvider({children}: {children: ReactNode}) {
   };
 
   const updateQuantity = (toolId: string, quantity: number) => {
-    if (quantity !== 1) return;
+    if (quantity <= 0) {
+      removeFromCart(toolId);
+      return;
+    }
     setItems((currentItems) =>
       currentItems.map((item) =>
-        item.code === toolId ? {...item, quantity: 1} : item
+        item.code === toolId ? {...item, quantity} : item
       )
     );
   };
@@ -55,6 +59,10 @@ export function CartProvider({children}: {children: ReactNode}) {
     return items.reduce((total, item) => total + item.price, 0);
   };
 
+  const getTotalItems = () => {
+    return items.reduce((total, item) => total + item.quantity, 0);
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -64,6 +72,7 @@ export function CartProvider({children}: {children: ReactNode}) {
         updateQuantity,
         clearCart,
         getTotalPrice,
+        getTotalItems,
         isInCart,
       }}
     >
