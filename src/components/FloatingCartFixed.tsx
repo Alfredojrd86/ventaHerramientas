@@ -106,75 +106,74 @@ const FloatingCartFixed: React.FC = () => {
       {/* Backdrop para móviles cuando está expandido */}
       {isExpanded && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 z-40"
           onClick={() => setIsExpanded(false)}
         />
       )}
 
+      {/* Icono Flotante del Carrito */}
       <div
-        className={`
-          fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-2xl
-          transition-all duration-300 ease-in-out
-          ${isExpanded ? 'h-96' : 'h-16'}
-        `}
+        className="fixed bottom-6 right-6 z-50 cursor-pointer group"
+        onClick={handleToggleExpanded}
+        title="Ver carrito de compras"
       >
-        {/* Barra Colapsada */}
-        <div
-          className="flex items-center justify-between p-4 cursor-pointer bg-gradient-to-r from-blue-600 to-blue-700 text-white h-16 hover:from-blue-700 hover:to-blue-800 transition-all duration-200"
-          onClick={handleToggleExpanded}
-          title="Clic para ver productos en el carrito"
-        >
-          {/* Info del Carrito */}
-          <div className="flex items-center space-x-3">
-            <div className="relative">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h9M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6" />
-              </svg>
-              {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold animate-pulse">
-                  {totalItems}
-                </span>
-              )}
-            </div>
-            <div>
-              <p className="text-sm font-medium">
-                {totalItems} {totalItems === 1 ? 'producto' : 'productos'}
-              </p>
-              <p className="text-xs opacity-90">
-                Total: {formatPrice(finalTotal)} • Clic para ver
-              </p>
-            </div>
+        <div className="relative">
+          {/* Botón Principal del Carrito */}
+          <div className="w-14 h-14 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full shadow-2xl flex items-center justify-center group-hover:from-blue-700 group-hover:to-blue-800 transition-all duration-200 transform group-hover:scale-110">
+            <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h9M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6" />
+            </svg>
           </div>
 
-          {/* Acciones */}
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleCheckout();
-              }}
-              className="bg-white text-blue-600 px-4 py-2 rounded-lg font-medium text-sm hover:bg-gray-50 transition-colors"
-            >
-              Comprar
-            </button>
-            <svg
-              className={`w-5 h-5 transform transition-transform duration-200 ${
-                isExpanded ? 'rotate-180' : ''
-              }`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
+          {/* Badge con número de productos */}
+          {totalItems > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold animate-pulse shadow-lg">
+              {totalItems}
+            </span>
+          )}
+
+          {/* Tooltip con información rápida */}
+          <div className="absolute bottom-16 right-0 bg-gray-900 text-white text-xs rounded-lg px-3 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+            {totalItems} {totalItems === 1 ? 'producto' : 'productos'} • {formatPrice(finalTotal)}
+            <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-900"></div>
           </div>
         </div>
 
-        {/* Vista Expandida */}
-        {isExpanded && (
-          <div className="h-80 flex flex-col bg-white">
-            {/* Lista de Productos */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3">
+        {/* Botón de Comprar Flotante */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            handleCheckout();
+          }}
+          className="absolute -top-2 -left-20 bg-green-500 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg hover:bg-green-600 transition-all duration-200 transform hover:scale-105 opacity-0 group-hover:opacity-100"
+        >
+          Comprar
+        </button>
+      </div>
+
+      {/* Panel Expandido del Carrito */}
+      {isExpanded && (
+        <div className="fixed bottom-6 right-6 z-50 w-96 max-w-[90vw] bg-white rounded-2xl shadow-2xl border border-gray-200 max-h-[80vh] flex flex-col">
+          {/* Header del Panel */}
+          <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-t-2xl">
+            <div className="flex items-center justify-between">
+              <h3 className="font-semibold">Tu Carrito</h3>
+              <button
+                onClick={() => setIsExpanded(false)}
+                className="text-white hover:text-gray-200 transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <p className="text-sm opacity-90 mt-1">
+              {totalItems} {totalItems === 1 ? 'producto' : 'productos'} • {formatPrice(finalTotal)}
+            </p>
+          </div>
+
+          {/* Lista de Productos */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-3">
               {items.map((item) => (
                 <div key={item.code} className="flex items-center space-x-3 bg-gray-50 rounded-lg p-3">
                   {/* Imagen */}
@@ -227,48 +226,47 @@ const FloatingCartFixed: React.FC = () => {
                   </button>
                 </div>
               ))}
-            </div>
-
-            {/* Resumen */}
-            <div className="border-t border-gray-200 p-4 bg-gray-50">
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Subtotal ({totalItems} productos)</span>
-                  <span className="font-medium">{formatPrice(totalPrice)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Envío a domicilio</span>
-                  <span className="font-medium">{formatPrice(shippingCost)}</span>
-                </div>
-                <div className="border-t border-gray-300 pt-2 flex justify-between">
-                  <span className="font-bold text-gray-900">Total</span>
-                  <span className="font-bold text-blue-600 text-lg">{formatPrice(finalTotal)}</span>
-                </div>
-              </div>
-              
-              <div className="mt-3 text-xs text-blue-600 bg-blue-50 p-2 rounded">
-                💡 <strong>Retiro gratis</strong> - Puedes retirar en persona sin costo adicional
-              </div>
-
-              <button
-                onClick={handleCheckout}
-                className="w-full mt-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-lg font-medium hover:from-blue-700 hover:to-blue-800 transition-all duration-200 transform hover:scale-105"
-              >
-                Finalizar Compra
-              </button>
-            </div>
           </div>
-        )}
 
-        {/* Modal de Opciones de Pago */}
-        <PaymentOptionsModal
-          isOpen={showPaymentModal}
-          onClose={() => setShowPaymentModal(false)}
-          onSelectOption={handlePaymentOptionSelect}
-          totalAmount={finalTotal}
-          itemCount={totalItems}
-        />
-      </div>
+          {/* Resumen */}
+          <div className="border-t border-gray-200 p-4 bg-gray-50 rounded-b-2xl">
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-gray-600">Subtotal ({totalItems} productos)</span>
+                <span className="font-medium">{formatPrice(totalPrice)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Envío a domicilio</span>
+                <span className="font-medium">{formatPrice(shippingCost)}</span>
+              </div>
+              <div className="border-t border-gray-300 pt-2 flex justify-between">
+                <span className="font-bold text-gray-900">Total</span>
+                <span className="font-bold text-blue-600 text-lg">{formatPrice(finalTotal)}</span>
+              </div>
+            </div>
+            
+            <div className="mt-3 text-xs text-blue-600 bg-blue-50 p-2 rounded">
+              💡 <strong>Retiro gratis</strong> - Puedes retirar en persona sin costo adicional
+            </div>
+
+            <button
+              onClick={handleCheckout}
+              className="w-full mt-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-lg font-medium hover:from-blue-700 hover:to-blue-800 transition-all duration-200 transform hover:scale-105"
+            >
+              Finalizar Compra
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de Opciones de Pago */}
+      <PaymentOptionsModal
+        isOpen={showPaymentModal}
+        onClose={() => setShowPaymentModal(false)}
+        onSelectOption={handlePaymentOptionSelect}
+        totalAmount={finalTotal}
+        itemCount={totalItems}
+      />
     </>
   );
 };

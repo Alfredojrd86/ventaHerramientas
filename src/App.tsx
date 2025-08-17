@@ -6,7 +6,7 @@ import EnhancedCheckoutPage from './components/EnhancedCheckoutPage';
 
 // Solo importar los componentes que vas a usar
 import StaticProductGrid from './components/StaticProductGrid';
-import FloatingCartFixed from './components/FloatingCartFixed';
+import FloatingCartIcon from './components/FloatingCartIcon';
 
 // Componente Home con nueva sección Hero
 function Home() {
@@ -36,8 +36,8 @@ function App() {
           <Route path="/checkout-simple" element={<CheckoutPage />} />
         </Routes>
         
-        {/* Solo Carrito Flotante */}
-        <FloatingCartFixed />
+        {/* Icono Flotante del Carrito */}
+        <FloatingCartIcon />
       </CartProvider>
     </Router>
   );
