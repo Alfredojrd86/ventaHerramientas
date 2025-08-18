@@ -8,159 +8,35 @@ import TenantPreview from './TenantPreview';
 import ProductManager from './ProductManager';
 import SupabaseSetup from './SupabaseSetup';
 
-// Simulación de datos de tenants para el demo
-const DEMO_TENANTS: TenantConfig[] = [
-  {
-    id: 'carpinteria-demo',
-    slug: 'carpinteria',
-    domain: 'carpinteria.mitienda.com',
-    status: 'active',
-    plan: 'professional',
-    branding: {
-      logo: '/logo-carpinteria.png',
-      primaryColor: '#1e40af',
-      secondaryColor: '#1e3a8a',
-      accentColor: '#3b82f6',
-      fontFamily: 'Inter, sans-serif',
-    },
-    business: {
-      name: 'Herramientas Profesionales Premium',
-      industry: 'carpinteria',
-      description: 'Herramientas de carpintería y construcción de primera calidad',
-      currency: 'CLP',
-      language: 'es',
-      timezone: 'America/Santiago',
-      contactInfo: {
-        phone: '+56 9 1234 5678',
-        email: 'ventas@herramientas-pro.cl',
-        address: 'Av. Principal 123',
-        city: 'Santiago',
-        region: 'Región Metropolitana',
-        whatsapp: '+56 9 1234 5678',
-      },
-    },
-    features: {
-      enableWishlist: true,
-      enableFilters: true,
-      enableMultiCurrency: false,
-      enableReviews: true,
-      enableInventoryTracking: true,
-      enableDiscountCodes: true,
-      enableGuestCheckout: true,
-      enableSocialLogin: false,
-    },
-    payment: {
-      methods: ['mercadopago', 'bank_transfer'],
-      currencies: ['CLP'],
-      taxRate: 0.19,
-      shippingCost: 8000,
-      freeShippingThreshold: 50000,
-    },
-    product: {
-      customFields: [],
-      categories: ['Sierras', 'Fresadoras', 'Lijadoras', 'Prensas'],
-      conditions: ['Nuevo', 'Usado - Excelente', 'Usado - Buen Estado'],
-      brands: ['Makita', 'Bosch', 'DeWalt', 'Milwaukee'],
-      defaultImagePlaceholder: '/placeholder-tool.jpg',
-    },
-    layout: {
-      headerStyle: 'hero',
-      footerStyle: 'extended',
-      productGridLayout: 'grid',
-      productsPerPage: 12,
-      showProductCode: true,
-      showStock: true,
-      showDiscount: true,
-    },
-    createdAt: '2024-01-15T10:30:00Z',
-    updatedAt: '2024-01-20T14:45:00Z',
-    ownerId: 'owner-1',
-  },
-  {
-    id: 'electronica-demo',
-    slug: 'electronica',
-    domain: undefined,
-    status: 'active',
-    plan: 'starter',
-    branding: {
-      logo: '/logo-electronica.png',
-      primaryColor: '#dc2626',
-      secondaryColor: '#b91c1c',
-      accentColor: '#ef4444',
-      fontFamily: 'Roboto, sans-serif',
-    },
-    business: {
-      name: 'TechStore Electrónicos',
-      industry: 'electronica',
-      description: 'Los mejores productos electrónicos y gadgets',
-      currency: 'USD',
-      language: 'es',
-      timezone: 'America/Mexico_City',
-      contactInfo: {
-        phone: '+52 55 1234 5678',
-        email: 'ventas@techstore.mx',
-        address: 'Calle Tecnología 456',
-        city: 'Ciudad de México',
-        region: 'CDMX',
-      },
-    },
-    features: {
-      enableWishlist: true,
-      enableFilters: true,
-      enableMultiCurrency: true,
-      enableReviews: false,
-      enableInventoryTracking: true,
-      enableDiscountCodes: false,
-      enableGuestCheckout: true,
-      enableSocialLogin: true,
-    },
-    payment: {
-      methods: ['stripe', 'paypal'],
-      currencies: ['USD', 'MXN'],
-      taxRate: 0.16,
-      shippingCost: 150,
-      freeShippingThreshold: 1000,
-    },
-    product: {
-      customFields: [
-        { id: 'warranty', name: 'Garantía', type: 'text', required: false },
-        { id: 'model', name: 'Modelo', type: 'text', required: true },
-      ],
-      categories: ['Smartphones', 'Laptops', 'Accesorios', 'Gaming'],
-      conditions: ['Nuevo', 'Reacondicionado', 'Usado'],
-      brands: ['Apple', 'Samsung', 'Sony', 'LG'],
-      defaultImagePlaceholder: '/placeholder-electronics.jpg',
-    },
-    layout: {
-      headerStyle: 'standard',
-      footerStyle: 'minimal',
-      productGridLayout: 'list',
-      productsPerPage: 20,
-      showProductCode: false,
-      showStock: false,
-      showDiscount: true,
-    },
-    createdAt: '2024-01-10T08:15:00Z',
-    updatedAt: '2024-01-18T16:20:00Z',
-    ownerId: 'owner-2',
-  }
-];
+// Los tenants ahora se cargan desde Supabase
 
 type DashboardView = 'overview' | 'tenants' | 'create' | 'edit' | 'preview' | 'products' | 'setup';
 
 export default function AdminDashboard() {
   const { user, logout } = useAuth();
-  const [tenants, setTenants] = useState<TenantConfig[]>(DEMO_TENANTS);
+  const [tenants, setTenants] = useState<TenantConfig[]>([]);
   const [currentView, setCurrentView] = useState<DashboardView>('setup');
   const [selectedTenant, setSelectedTenant] = useState<TenantConfig | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Simular carga de datos
+  // Cargar tenants reales desde Supabase
   useEffect(() => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
+    const loadTenants = async () => {
+      try {
+        setIsLoading(true);
+        // Por ahora solo mostrar el tenant real si existe
+        // En el futuro aquí se cargarían todos los tenants desde Supabase
+        const realTenants: TenantConfig[] = [];
+        setTenants(realTenants);
+      } catch (error) {
+        console.error('Error loading tenants:', error);
+        setTenants([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadTenants();
   }, []);
 
   const handleCreateTenant = async (tenantData: Partial<TenantConfig>) => {

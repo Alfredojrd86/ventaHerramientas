@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
 import PaymentOptionsModal from './PaymentOptionsModal';
 
@@ -15,6 +15,16 @@ const FloatingCartIcon: React.FC = () => {
   const formatPrice = (price: number) => {
     return `$${price.toLocaleString('es-CL')}`;
   };
+
+  // Manejar comportamiento del modal según los productos
+  useEffect(() => {
+    // Solo cerrar el modal si el carrito está completamente vacío
+    // Mantener abierto mientras se eliminan productos uno por uno
+    if (totalItems === 0) {
+      setIsExpanded(false);
+    }
+    // No hacer nada si hay productos (mantener estado actual)
+  }, [totalItems]);
 
   const handleToggleExpanded = () => {
     setIsExpanded(!isExpanded);
@@ -132,13 +142,7 @@ const FloatingCartIcon: React.FC = () => {
           </div>
         </div>
 
-        {/* Botón Comprar */}
-        <button
-          onClick={handleCheckout}
-          className="absolute -top-2 -left-20 bg-green-500 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg hover:bg-green-600 transition-all duration-200"
-        >
-          Comprar
-        </button>
+
       </div>
 
       {/* Panel Expandido */}
