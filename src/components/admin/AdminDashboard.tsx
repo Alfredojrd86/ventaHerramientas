@@ -7,6 +7,7 @@ import DashboardStats from './DashboardStats';
 import TenantPreview from './TenantPreview';
 import ProductManager from './ProductManager';
 import SupabaseSetup from './SupabaseSetup';
+import SessionDebug from './SessionDebug';
 
 // Los tenants ahora se cargan desde Supabase
 
@@ -216,9 +217,10 @@ export default function AdminDashboard() {
                       {user?.name || 'Usuario'}
                     </div>
                     <div className="text-xs text-gray-500">
-                      {user?.role === 'super_admin' ? 'Super Administrador' : 
-                       user?.role === 'tenant_owner' ? 'Dueño de Tienda' :
-                       user?.role === 'admin' ? 'Administrador' : 'Usuario'}
+                      {/* Debug: {user?.role} */}
+                      {user?.role === 'super_admin' ? 'Super Admin' : 
+                       user?.role === 'tenant_owner' ? 'Admin' :
+                       user?.role === 'admin' ? 'Administrador' : `Usuario (${user?.role})`}
                     </div>
                   </div>
                 </div>
@@ -299,6 +301,10 @@ export default function AdminDashboard() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        {/* Debug temporal de sesión */}
+        <SessionDebug />
+        
         {isLoading && currentView !== 'overview' ? (
           <div className="flex justify-center items-center py-12">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
