@@ -287,47 +287,68 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
+      {/* Header Mejorado */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">
-                🏢 Admin Dashboard
-              </h1>
-              <p className="text-sm text-gray-600">
-                Gestiona todos tus tenants desde aquí
-              </p>
+          <div className="flex justify-between items-center py-6">
+            <div className="flex items-center space-x-4">
+              <div className="h-10 w-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">
+                  Panel Administrativo
+                </h1>
+                <p className="text-sm text-gray-600">
+                  Gestiona tu plataforma SaaS desde aquí
+                </p>
+              </div>
             </div>
             
             <div className="flex items-center gap-4">
               {currentView === 'tenants' && (
                 <button
                   onClick={() => setCurrentView('create')}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+                  className="inline-flex items-center bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl"
                 >
-                  + Nuevo Tenant
+                  <svg className="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
+                  Nuevo Tenant
                 </button>
               )}
               
-              <div className="text-sm text-gray-500">
-                {tenants.length} tenant{tenants.length !== 1 ? 's' : ''}
+              <div className="flex items-center bg-gray-100 rounded-lg px-3 py-2">
+                <svg className="h-4 w-4 text-gray-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+                <span className="text-sm font-medium text-gray-700">
+                  {tenants.length} tenant{tenants.length !== 1 ? 's' : ''}
+                </span>
               </div>
 
-              {/* User Menu */}
+              {/* User Menu Mejorado */}
               <div className="flex items-center gap-3 pl-4 border-l border-gray-200">
-                <div className="text-right">
-                  <div className="text-sm font-medium text-gray-900">
-                    {user?.avatar} {user?.name}
+                <div className="flex items-center space-x-3">
+                  <div className="h-8 w-8 bg-gradient-to-br from-gray-400 to-gray-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                    {user?.name?.charAt(0) || user?.avatar || '👤'}
                   </div>
-                  <div className="text-xs text-gray-500">
-                    {user?.role === 'super_admin' ? 'Super Administrador' : 
-                     user?.role === 'admin' ? 'Administrador' : 'Dueño de Tienda'}
+                  <div className="text-right">
+                    <div className="text-sm font-medium text-gray-900">
+                      {user?.name || 'Usuario'}
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      {user?.role === 'super_admin' ? 'Super Administrador' : 
+                       user?.role === 'tenant_owner' ? 'Dueño de Tienda' :
+                       user?.role === 'admin' ? 'Administrador' : 'Usuario'}
+                    </div>
                   </div>
                 </div>
                 <button
                   onClick={logout}
-                  className="text-gray-400 hover:text-gray-600 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                  className="text-gray-400 hover:text-red-600 p-2 rounded-lg hover:bg-red-50 transition-all duration-200"
                   title="Cerrar sesión"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -340,26 +361,60 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      {/* Navigation */}
-      <nav className="bg-white border-b">
+      {/* Navigation Mejorada */}
+      <nav className="bg-white border-b shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex space-x-8">
+          <div className="flex space-x-1">
             {[
-              { key: 'setup', label: '⚙️ Configurar', icon: '⚙️' },
-              { key: 'products', label: '🔧 Productos', icon: '🔧' },
-              { key: 'overview', label: '📊 Resumen', icon: '📊' },
-              { key: 'tenants', label: '🏪 Tenants', icon: '🏪' },
+              { 
+                key: 'overview', 
+                label: 'Resumen', 
+                icon: (
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                )
+              },
+              { 
+                key: 'products', 
+                label: 'Productos', 
+                icon: (
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                  </svg>
+                )
+              },
+              { 
+                key: 'tenants', 
+                label: 'Tiendas', 
+                icon: (
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                )
+              },
+              { 
+                key: 'setup', 
+                label: 'Configuración', 
+                icon: (
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                )
+              },
             ].map((item) => (
               <button
                 key={item.key}
                 onClick={() => setCurrentView(item.key as DashboardView)}
-                className={`py-4 px-2 border-b-2 font-medium text-sm transition-colors ${
+                className={`inline-flex items-center space-x-2 py-4 px-6 border-b-2 font-medium text-sm transition-all duration-200 ${
                   currentView === item.key
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    ? 'border-blue-500 text-blue-600 bg-blue-50'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 hover:bg-gray-50'
                 }`}
               >
-                {item.label}
+                {item.icon}
+                <span>{item.label}</span>
               </button>
             ))}
           </div>
