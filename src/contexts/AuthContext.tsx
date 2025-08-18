@@ -174,14 +174,7 @@ function transformSupabaseUser(supabaseUser: SupabaseUser): User {
     userRole = rawRole;
   }
   
-  // Debug temporal
-  console.log('🔍 Debug User Transform:', {
-    email: supabaseUser.email,
-    raw_user_meta_data: supabaseUser.user_metadata,
-    supabaseUser: supabaseUser,
-    rawRole: rawRole,
-    finalRole: userRole
-  });
+  // Debug removido para producción
   
   return {
     id: supabaseUser.id,

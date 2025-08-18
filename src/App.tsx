@@ -12,8 +12,8 @@ import FloatingCartIcon from './components/FloatingCartIcon';
 import AdminDashboard from './components/admin/AdminDashboard';
 import LoginPage from './components/auth/LoginPage';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-import DebugInfo from './components/DebugInfo';
-import DiagnosticPanel from './components/DiagnosticPanel';
+// Debug components moved to debug folder (commented out for production)
+// import { DebugInfo, DiagnosticPanel } from './components/debug';
 import Footer from './components/Footer';
 
 
