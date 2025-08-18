@@ -1,3 +1,66 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Variables CSS dinámicas para theming multi-tenant */
+:root {
+  /* Colores por defecto - serán sobrescritos por TenantContext */
+  --color-primary: #1e40af;
+  --color-secondary: #1e3a8a;
+  --color-accent: #3b82f6;
+  --font-family: 'Inter', sans-serif;
+}
+
+/* Clases utilitarias para usar las variables dinámicas */
+.bg-tenant-primary {
+  background-color: var(--color-primary);
+}
+
+.bg-tenant-secondary {
+  background-color: var(--color-secondary);
+}
+
+.bg-tenant-accent {
+  background-color: var(--color-accent);
+}
+
+.text-tenant-primary {
+  color: var(--color-primary);
+}
+
+.text-tenant-secondary {
+  color: var(--color-secondary);
+}
+
+.text-tenant-accent {
+  color: var(--color-accent);
+}
+
+.border-tenant-primary {
+  border-color: var(--color-primary);
+}
+
+.border-tenant-secondary {
+  border-color: var(--color-secondary);
+}
+
+.border-tenant-accent {
+  border-color: var(--color-accent);
+}
+
+/* Hover states */
+.hover\:bg-tenant-primary:hover {
+  background-color: var(--color-primary);
+}
+
+.hover\:bg-tenant-secondary:hover {
+  background-color: var(--color-secondary);
+}
+
+.hover\:text-tenant-primary:hover {
+  color: var(--color-primary);
+}
+
+/* Font family dinámica */
+.font-tenant {
+  font-family: var(--font-family);
+}

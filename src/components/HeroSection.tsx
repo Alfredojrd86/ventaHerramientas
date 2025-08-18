@@ -1,13 +1,15 @@
 import { ShoppingCartIcon, CheckCircleIcon, TruckIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
+import { useTenantConfig } from '../contexts/TenantContext';
 
 export default function HeroSection() {
+  const { business, product, payment } = useTenantConfig();
   const scrollToProducts = () => {
     const productsSection = document.getElementById('products-section');
     productsSection?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <div className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 overflow-hidden">
+    <div className="relative bg-gradient-to-br from-slate-900 via-tenant-secondary to-slate-800 overflow-hidden font-tenant">
       {/* Patrón de fondo */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute inset-0 bg-gradient-to-r from-white/5 via-transparent to-white/5"></div>
@@ -27,22 +29,24 @@ export default function HeroSection() {
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              Herramientas{' '}
-              <span className="block text-yellow-400">Profesionales</span>
-              <span className="block text-blue-300">Premium</span>
+              {business.name.split(' ')[0]}{' '}
+              <span className="block text-yellow-400">{business.name.split(' ')[1] || 'Profesionales'}</span>
+              <span className="block text-tenant-accent">{business.name.split(' ')[2] || 'Premium'}</span>
             </h1>
             
             <p className="text-xl text-gray-300 mb-8 max-w-2xl">
-              Hasta <span className="text-yellow-400 font-bold text-2xl">30% OFF</span> en equipo profesional de las mejores marcas
+              {business.description} - Hasta <span className="text-yellow-400 font-bold text-2xl">30% OFF</span>
             </p>
             
             {/* Marcas destacadas */}
             <div className="flex flex-wrap justify-center lg:justify-start items-center gap-6 mb-8">
               <div className="text-white font-semibold text-lg">Marcas:</div>
               <div className="flex flex-wrap gap-4">
-                <span className="bg-white/10 px-3 py-1 rounded-lg text-white font-medium">Makita</span>
-                <span className="bg-white/10 px-3 py-1 rounded-lg text-white font-medium">Bosch</span>
-                <span className="bg-white/10 px-3 py-1 rounded-lg text-white font-medium">DeWalt</span>
+                {product.brands.slice(0, 3).map((brand, index) => (
+                  <span key={index} className="bg-white/10 px-3 py-1 rounded-lg text-white font-medium">
+                    {brand}
+                  </span>
+                ))}
               </div>
             </div>
             
@@ -50,7 +54,7 @@ export default function HeroSection() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
               <button
                 onClick={scrollToProducts}
-                className="group relative px-8 py-4 bg-yellow-500 hover:bg-yellow-400 text-yellow-900 font-bold text-lg rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+                className="group relative px-8 py-4 bg-tenant-accent hover:bg-yellow-400 text-white font-bold text-lg rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
               >
                 <span className="flex items-center justify-center gap-2">
                   <ShoppingCartIcon className="w-6 h-6" />
@@ -84,7 +88,7 @@ export default function HeroSection() {
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="bg-yellow-500 text-yellow-900 w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs">3</span>
-                  <span>Pago seguro con Mercado Pago</span>
+                  <span>Pago seguro con {payment.methods.includes('mercadopago') ? 'Mercado Pago' : 'métodos seguros'}</span>
                 </div>
               </div>
             </div>
@@ -146,6 +150,19 @@ export default function HeroSection() {
             </div>
           </div>
         </div>
+      </div>
+      
+      {/* Botón de Admin - Esquina superior derecha */}
+      <div className="absolute top-6 right-6">
+        <a 
+          href="/login"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-sm font-medium text-white hover:bg-white/20 hover:border-white/30 transition-all duration-200 shadow-lg hover:shadow-xl"
+        >
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+          Admin
+        </a>
       </div>
       
       {/* Indicador de scroll */}
