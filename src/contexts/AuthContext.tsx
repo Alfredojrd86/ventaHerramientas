@@ -125,7 +125,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const canAccessAdmin = (): boolean => {
     if (!user) return false;
-    return user.role === 'super_admin' || user.role === 'admin';
+    // Permitir acceso a super_admin, admin y tenant_owner
+    return user.role === 'super_admin' || user.role === 'admin' || user.role === 'tenant_owner';
   };
 
   const canManageTenant = (tenantId: string): boolean => {
@@ -164,11 +165,29 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
 // Transformar usuario de Supabase a nuestro formato
 function transformSupabaseUser(supabaseUser: SupabaseUser): User {
+  // Extraer el rol desde raw_user_meta_data con mejor manejo
+  const rawRole = supabaseUser.user_metadata?.role;
+  let userRole: 'super_admin' | 'admin' | 'tenant_owner' = 'admin'; // fallback
+  
+  // Validar que el rol sea uno de los valores esperados
+  if (rawRole === 'super_admin' || rawRole === 'tenant_owner' || rawRole === 'admin') {
+    userRole = rawRole;
+  }
+  
+  // Debug temporal
+  console.log('🔍 Debug User Transform:', {
+    email: supabaseUser.email,
+    raw_user_meta_data: supabaseUser.user_metadata,
+    supabaseUser: supabaseUser,
+    rawRole: rawRole,
+    finalRole: userRole
+  });
+  
   return {
     id: supabaseUser.id,
     email: supabaseUser.email || '',
     name: supabaseUser.user_metadata?.name || supabaseUser.email || 'Usuario',
-    role: 'super_admin', // Por ahora todos los usuarios registrados son admin
+    role: userRole,
     avatar: '👨‍💼',
   };
 }
