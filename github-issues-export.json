@@ -1,0 +1,72 @@
+[
+  {
+    "title": "[CRITICAL] Implementar carga real de tenants en AdminDashboard",
+    "body": "## 🎯 Descripción\nActualmente AdminDashboard muestra array vacío en lugar de tenants reales desde Supabase.\n\n## ✅ Acceptance Criteria\n- [ ] Implementar `tenantService.ts` con `getTenants()`\n- [ ] Conectar AdminDashboard con Supabase\n- [ ] Mostrar tenants reales en la interfaz\n- [ ] Manejar estados de loading y error\n- [ ] Filtrar tenants por permisos de usuario\n\n## 📁 Files to Modify\n- `src/services/tenantService.ts` (crear)\n- `src/components/admin/AdminDashboard.tsx` (línea ~29)\n\n## 🔗 Dependencies\n- Ninguna\n\n## 📊 Priority\nP0 - Bloqueante para MVP\n\n## 🧪 Testing\n- [ ] Probar con super_admin (ve todos los tenants)\n- [ ] Probar con tenant_owner (ve solo su tenant)\n- [ ] Manejar errores de conexión\n- [ ] Estados de loading apropiados",
+    "labels": ["critical", "mvp", "backend", "admin"],
+    "milestone": "MVP v1.0",
+    "assignees": []
+  },
+  {
+    "title": "[CRITICAL] CRUD completo de productos en ProductManager",
+    "body": "## 🎯 Descripción\nProductManager solo tiene estructura básica, falta funcionalidad completa de gestión de productos.\n\n## ✅ Acceptance Criteria\n- [ ] Formulario de creación de productos\n- [ ] Formulario de edición de productos\n- [ ] Eliminación de productos (soft delete)\n- [ ] Validaciones de formularios\n- [ ] Manejo de errores y estados\n- [ ] Paginación de productos\n- [ ] Filtros básicos (activo/inactivo)\n\n## 📁 Files to Modify\n- `src/components/admin/ProductManager.tsx`\n- `src/services/productService.ts`\n\n## 🔗 Dependencies\n- Depends on: Carga real de tenants\n\n## 📊 Priority\nP0 - Bloqueante para MVP\n\n## 🧪 Testing\n- [ ] Crear producto nuevo\n- [ ] Editar producto existente\n- [ ] Eliminar producto (soft delete)\n- [ ] Validaciones de campos requeridos\n- [ ] Permisos por tipo de usuario",
+    "labels": ["critical", "mvp", "frontend", "admin"],
+    "milestone": "MVP v1.0",
+    "assignees": []
+  },
+  {
+    "title": "[CRITICAL] Implementar sistema de orders completo",
+    "body": "## 🎯 Descripción\nNo existe sistema de pedidos. Crítico para checkout funcional y tracking de ventas.\n\n## ✅ Acceptance Criteria\n- [ ] Crear tablas `orders` y `order_items` en Supabase\n- [ ] Implementar `orderService.ts` completo\n- [ ] RLS policies para orders por tenant\n- [ ] Estados de pedidos (pending, confirmed, shipped, etc.)\n- [ ] Integración con carrito actual\n\n## 📁 Database Schema\n```sql\nCREATE TABLE orders (\n  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),\n  tenant_id uuid REFERENCES tenants(id),\n  customer_email string,\n  customer_name string,\n  customer_phone string,\n  status order_status DEFAULT 'pending',\n  subtotal numeric,\n  shipping_cost numeric,\n  total numeric,\n  payment_method payment_method,\n  payment_status payment_status DEFAULT 'pending',\n  notes text,\n  created_at timestamp DEFAULT now(),\n  updated_at timestamp DEFAULT now()\n);\n\nCREATE TABLE order_items (\n  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),\n  order_id uuid REFERENCES orders(id),\n  product_id uuid REFERENCES products(id),\n  quantity integer,\n  unit_price numeric,\n  total_price numeric,\n  created_at timestamp DEFAULT now()\n);\n```\n\n## 📊 Priority\nP0 - Bloqueante para MVP\n\n## 🧪 Testing\n- [ ] Crear order desde checkout\n- [ ] Verificar cálculos correctos\n- [ ] RLS policies funcionando\n- [ ] Estados de order actualizables",
+    "labels": ["critical", "mvp", "backend", "database"],
+    "milestone": "MVP v1.0",
+    "assignees": []
+  },
+  {
+    "title": "[CRITICAL] Checkout funcional con generación de pedidos",
+    "body": "## 🎯 Descripción\nCheckoutPage no procesa pedidos reales ni integra correctamente con MercadoPago.\n\n## ✅ Acceptance Criteria\n- [ ] Formulario completo de checkout\n- [ ] Validación de datos del cliente\n- [ ] Generación de order en base de datos\n- [ ] Integración MercadoPago real (no solo WhatsApp)\n- [ ] Confirmación por WhatsApp/Email\n- [ ] Página de confirmación de pedido\n- [ ] Limpieza del carrito post-checkout\n\n## 📁 Files to Modify\n- `src/components/CheckoutPage.tsx`\n- `src/components/EnhancedCheckoutPage.tsx`\n- `src/services/orderService.ts`\n\n## 🔗 Dependencies\n- Depends on: Sistema de orders (#issue-number)\n\n## 📊 Priority\nP0 - Bloqueante para MVP\n\n## 🧪 Testing\n- [ ] Checkout completo con WhatsApp\n- [ ] Checkout completo con MercadoPago\n- [ ] Validaciones de formulario\n- [ ] Manejo de errores de pago\n- [ ] Confirmaciones enviadas correctamente",
+    "labels": ["critical", "mvp", "frontend", "payments"],
+    "milestone": "MVP v1.0",
+    "assignees": []
+  },
+  {
+    "title": "[IMPORTANT] Subida de imágenes para productos",
+    "body": "## 🎯 Descripción\nPermitir subir imágenes de productos desde ProductManager usando Supabase Storage.\n\n## ✅ Acceptance Criteria\n- [ ] Configurar Supabase Storage bucket\n- [ ] Componente de subida de imágenes\n- [ ] Validación de tipos (jpg, png, webp)\n- [ ] Validación de tamaño (max 5MB)\n- [ ] Optimización automática de imágenes\n- [ ] Preview antes de subir\n- [ ] Eliminar imágenes no usadas\n\n## 📁 Files to Modify\n- `src/components/admin/ProductManager.tsx`\n- `src/components/ImageUploader.tsx` (crear)\n- `src/services/storageService.ts` (crear)\n\n## 📊 Priority\nP1 - Importante para UX\n\n## 🧪 Testing\n- [ ] Subir imagen válida\n- [ ] Rechazar formatos inválidos\n- [ ] Rechazar archivos muy grandes\n- [ ] Preview funcional\n- [ ] Eliminar imágenes correctamente",
+    "labels": ["important", "admin", "storage"],
+    "milestone": "MVP v1.1",
+    "assignees": []
+  },
+  {
+    "title": "[IMPORTANT] Dashboard de estadísticas para tenants",
+    "body": "## 🎯 Descripción\nDashboard con métricas básicas para que tenant owners vean el performance de su tienda.\n\n## ✅ Acceptance Criteria\n- [ ] Conteo de productos activos\n- [ ] Número de pedidos del mes\n- [ ] Ventas totales del mes\n- [ ] Productos más vendidos\n- [ ] Gráficos básicos (Chart.js)\n- [ ] Filtros por período (mes, semana)\n\n## 📁 Files to Modify\n- `src/components/admin/DashboardStats.tsx`\n- `src/services/analyticsService.ts` (crear)\n\n## 🔗 Dependencies\n- Depends on: Sistema de orders\n\n## 📊 Priority\nP1 - Valor agregado importante\n\n## 🧪 Testing\n- [ ] Métricas calculadas correctamente\n- [ ] Filtros funcionando\n- [ ] Gráficos renderizando\n- [ ] Performance con muchos datos",
+    "labels": ["important", "admin", "analytics"],
+    "milestone": "MVP v1.1",
+    "assignees": []
+  },
+  {
+    "title": "[IMPORTANT] Validaciones robustas en formularios",
+    "body": "## 🎯 Descripción\nImplementar validaciones completas en todos los formularios del sistema.\n\n## ✅ Acceptance Criteria\n- [ ] Validaciones de productos (nombre, precio, etc.)\n- [ ] Validaciones de checkout (email, teléfono, etc.)\n- [ ] Validaciones de tenant (info de negocio)\n- [ ] Mensajes de error claros\n- [ ] Validación en tiempo real\n- [ ] Sanitización de inputs\n\n## 📁 Files to Modify\n- `src/utils/validation.ts` (crear)\n- `src/hooks/useFormValidation.ts` (crear)\n- Todos los formularios existentes\n\n## 📊 Priority\nP1 - Importante para UX y seguridad",
+    "labels": ["important", "frontend", "validation"],
+    "milestone": "MVP v1.1",
+    "assignees": []
+  },
+  {
+    "title": "[ENHANCEMENT] Tema personalizable por tenant",
+    "body": "## 🎯 Descripción\nPermitir a cada tenant personalizar colores, logo y branding de su tienda.\n\n## ✅ Acceptance Criteria\n- [ ] Editor de colores primarios/secundarios\n- [ ] Subida de logo personalizado\n- [ ] Preview en tiempo real\n- [ ] Aplicación automática en frontend\n- [ ] Fallback a tema por defecto\n\n## 📊 Priority\nP2 - Diferenciador de producto",
+    "labels": ["enhancement", "ui", "branding"],
+    "milestone": "v2.0",
+    "assignees": []
+  },
+  {
+    "title": "[ENHANCEMENT] PWA capabilities",
+    "body": "## 🎯 Descripción\nConvertir en Progressive Web App para mejor experiencia móvil.\n\n## ✅ Acceptance Criteria\n- [ ] Service Worker para cache\n- [ ] Manifest.json configurado\n- [ ] Funcionalidad offline básica\n- [ ] Instalación en móvil\n- [ ] Push notifications\n\n## 📊 Priority\nP2 - Experiencia móvil mejorada",
+    "labels": ["enhancement", "pwa", "performance"],
+    "milestone": "v2.0",
+    "assignees": []
+  },
+  {
+    "title": "[BUG] Verificar permisos tenant_owner vs super_admin",
+    "body": "## 🐛 Bug Description\nVerificar que los permisos entre tenant_owner y super_admin funcionan correctamente.\n\n## 🔄 Steps to Reproduce\n1. Login como tenant_owner\n2. Intentar acceder a funciones de super_admin\n3. Verificar restricciones\n\n## ✅ Expected Behavior\n- tenant_owner solo ve su tenant\n- super_admin ve todos los tenants\n- Permisos correctos en cada vista\n\n## 📊 Priority\nP1 - Importante para seguridad",
+    "labels": ["bug", "auth", "security"],
+    "milestone": "MVP v1.0",
+    "assignees": []
+  }
+]
