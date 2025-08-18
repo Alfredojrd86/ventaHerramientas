@@ -14,6 +14,7 @@ import LoginPage from './components/auth/LoginPage';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import DebugInfo from './components/DebugInfo';
 import DiagnosticPanel from './components/DiagnosticPanel';
+import Footer from './components/Footer';
 
 
 // Componente Home con nueva sección Hero
@@ -23,16 +24,9 @@ function Home() {
       {/* Nueva sección Hero que reemplaza header y banner */}
       <HeroSection />
 
+
+
       <div className="container mx-auto px-4 py-8">
-        {/* Enlace discreto al admin (solo para demo) */}
-        <div className="mb-4 text-center">
-          <a 
-            href="/login" 
-            className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-blue-600 transition-colors"
-          >
-            🔐 Acceso Administrativo
-          </a>
-        </div>
         
         {/* Grid de productos principal */}
         <div id="products-section" className="mt-8">
@@ -40,8 +34,11 @@ function Home() {
         </div>
       </div>
       
-      {/* Panel de diagnóstico mejorado */}
-      <DiagnosticPanel />
+      {/* Panel de diagnóstico mejorado - COMENTADO para uso futuro */}
+      {/* <DiagnosticPanel /> */}
+      
+      {/* Footer profesional minimalista */}
+      <Footer />
     </div>
   );
 }
