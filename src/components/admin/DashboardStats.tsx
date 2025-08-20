@@ -18,19 +18,31 @@ export default function DashboardStats({ tenants }: DashboardStatsProps) {
   };
 
   const industryStats = tenants.reduce((acc, tenant) => {
-    acc[tenant.business.industry] = (acc[tenant.business.industry] || 0) + 1;
+    const industry = tenant.business?.industry || 'Sin categoría';
+    acc[industry] = (acc[industry] || 0) + 1;
     return acc;
   }, {} as Record<string, number>);
 
-  const sortedTenants = [...tenants].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  const sortedTenants = [...tenants].sort((a, b) => {
+    const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+    const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+    return dateB - dateA;
+  });
   const recentTenants = sortedTenants.slice(0, 5);
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('es-ES', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    });
+    try {
+      if (!dateString) return 'Fecha no disponible';
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) return 'Fecha inválida';
+      return date.toLocaleDateString('es-ES', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
+    } catch {
+      return 'Fecha inválida';
+    }
   };
 
   const getStatusColor = (status: string) => {
@@ -203,20 +215,20 @@ export default function DashboardStats({ tenants }: DashboardStatsProps) {
           </div>
           <div className="divide-y divide-gray-200">
             {recentTenants.map((tenant) => (
-              <div key={tenant.id} className="p-6">
+              <div key={tenant.id || `tenant-${Math.random()}`} className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-900">{tenant.business.name}</p>
+                    <p className="text-sm font-medium text-gray-900">{tenant.business?.name || 'Sin nombre'}</p>
                     <p className="text-xs text-gray-500">
-                      {tenant.slug} • {formatDate(tenant.createdAt)}
+                      {tenant.slug || 'sin-slug'} • {formatDate(tenant.createdAt || '')}
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(tenant.status)}`}>
-                      {tenant.status}
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(tenant.status || 'inactive')}`}>
+                      {tenant.status || 'inactive'}
                     </span>
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getPlanColor(tenant.plan)}`}>
-                      {tenant.plan}
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getPlanColor(tenant.plan || 'starter')}`}>
+                      {tenant.plan || 'starter'}
                     </span>
                   </div>
                 </div>

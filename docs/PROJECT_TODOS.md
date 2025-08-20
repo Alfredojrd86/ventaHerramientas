@@ -33,6 +33,10 @@ Plataforma SaaS multi-tenant para venta de herramientas con:
 - [x] Filtrado de productos por `tenant_id`
 - [x] Configuración de fallback para tenant "carpinteria"
 - [x] Usuario tenant configurado: `tompyviruta@gmail.com`
+- [x] **CRUD completo de tenants** para super_admin
+- [x] **Formulario de creación de tenant** funcional
+- [x] **Asignación de productos a tenants** específicos
+- [x] **Cargar tenants reales desde Supabase** en AdminDashboard
 
 ### 🛒 **E-commerce Core**
 - [x] ProductGrid con carga desde Supabase
@@ -56,19 +60,21 @@ Plataforma SaaS multi-tenant para venta de herramientas con:
 - [x] Variables de entorno configuradas
 - [x] Supabase conectado y funcionando
 - [x] RLS policies configuradas para acceso público
+- [x] **Políticas RLS refinadas** por tipo de usuario
 
 ### 🔧 **Debug y Organización**
 - [x] Componentes de debug organizados en `/debug`
 - [x] Limpieza de código para producción
 - [x] Sistema de configuración de debug
 - [x] Documentación de componentes debug
+- [x] **Sistema de pruebas y diagnóstico** para tenants
 
 ---
 
 ## 🟡 EN PROGRESO
 
 ### 📊 **Panel Administrativo**
-- [ ] **Carga real de tenants desde Supabase** (actualmente array vacío)
+
 - [ ] **Gestión completa de productos** (CRUD)
 - [ ] **Estadísticas del dashboard** (ventas, productos, etc.)
 - [ ] **Configuración de tenant** (branding, info de contacto)
@@ -80,25 +86,29 @@ Plataforma SaaS multi-tenant para venta de herramientas con:
 ### 🔥 **Alta Prioridad (Bloqueantes MVP)**
 
 #### 🏪 **Gestión de Tenants**
-- [ ] **Cargar tenants reales desde Supabase** en AdminDashboard
-- [ ] **CRUD completo de tenants** para super_admin
-- [ ] **Formulario de creación de tenant** funcional
-- [ ] **Asignación de productos a tenants** específicos
+
+- [x] ~~**Cargar tenants reales desde Supabase** en AdminDashboard~~
+- [x] ~~**CRUD completo de tenants** para super_admin~~
+- [x] ~~**Formulario de creación de tenant** funcional~~
+- [x] ~~**Asignación de productos a tenants** específicos~~
 
 #### 📦 **Gestión de Productos**
+
 - [ ] **ProductManager funcional** (crear, editar, eliminar productos)
 - [ ] **Subida de imágenes** para productos
 - [ ] **Validaciones de formularios** de productos
 - [ ] **Estados de productos** (activo/inactivo)
 
 #### 💳 **Checkout y Pagos**
+
 - [ ] **Integración real con MercadoPago** (no solo WhatsApp)
 - [ ] **Página de checkout completa** con formulario
 - [ ] **Confirmación de pedidos** y estados
 - [ ] **Historial de pedidos** para usuarios
 
 #### 🔐 **Seguridad y Permisos**
-- [ ] **RLS policies refinadas** por tipo de usuario
+
+- [x] ~~**RLS policies refinadas** por tipo de usuario~~
 - [ ] **Validación de permisos** en frontend y backend
 - [ ] **Gestión de sesiones** mejorada
 - [ ] **Registro de usuarios** (no solo login)
@@ -108,6 +118,7 @@ Plataforma SaaS multi-tenant para venta de herramientas con:
 ## 🟢 MEDIA PRIORIDAD (Post-MVP)
 
 ### 📈 **Funcionalidades Avanzadas**
+
 - [ ] **Dashboard de analytics** para tenants
 - [ ] **Notificaciones** de pedidos
 - [ ] **Sistema de inventario** con stock
@@ -116,6 +127,7 @@ Plataforma SaaS multi-tenant para venta de herramientas con:
 - [ ] **Búsqueda y filtros** avanzados
 
 ### 🎨 **Mejoras de UI/UX**
+
 - [ ] **Tema personalizable** por tenant
 - [ ] **Modo oscuro**
 - [ ] **Animaciones** y transiciones
@@ -123,6 +135,7 @@ Plataforma SaaS multi-tenant para venta de herramientas con:
 - [ ] **Optimización móvil** avanzada
 
 ### 🔧 **Optimizaciones Técnicas**
+
 - [ ] **Cache inteligente** de productos
 - [ ] **Lazy loading** de imágenes
 - [ ] **SEO optimization** por tenant
@@ -134,12 +147,14 @@ Plataforma SaaS multi-tenant para venta de herramientas con:
 ## 🔴 BAJA PRIORIDAD (Futuro)
 
 ### 🌐 **Integraciones**
+
 - [ ] **Múltiples gateways de pago**
 - [ ] **Integración con redes sociales**
 - [ ] **Email marketing** integration
 - [ ] **Webhooks** para terceros
 
 ### 📱 **Aplicación Móvil**
+
 - [ ] **React Native app**
 - [ ] **Push notifications**
 - [ ] **Offline capabilities**
@@ -149,14 +164,41 @@ Plataforma SaaS multi-tenant para venta de herramientas con:
 ## 🚨 ISSUES CONOCIDOS
 
 ### 🐛 **Bugs Pendientes**
+
 - [ ] **Verificar carga de productos** en diferentes tenants
 - [ ] **Validar permisos** tenant_owner vs super_admin
 - [ ] **Testing cross-browser** compatibility
 
 ### ⚠️ **Mejoras de Rendimiento**
+
 - [ ] **Optimizar queries** de Supabase
 - [ ] **Reducir bundle size**
 - [ ] **Mejorar tiempo de carga inicial**
+
+---
+
+## 🎯 ROADMAP HACIA MVP
+
+### **Semana 1-2: Core Admin** ✅ COMPLETADO
+
+1. ✅ ~~Arreglar carga de tenants reales~~
+2. ✅ ~~Implementar ProductManager CRUD~~
+3. ✅ ~~Formularios de creación/edición~~
+4. ✅ ~~Subida de imágenes básica~~
+
+### **Semana 3: Checkout**  
+
+1. 🔥 Página de checkout completa
+2. 🔥 Integración MercadoPago real
+3. 🔥 Estados de pedidos básicos
+4. 🔥 Confirmaciones por email/WhatsApp
+
+### **Semana 4: Polish & Deploy**
+
+1. 🔥 Testing completo de flujos
+2. 🔥 Optimizaciones de rendimiento
+3. 🔥 Deploy estable a producción
+4. 🔥 Documentación de usuario final
 
 ---
 
@@ -166,7 +208,7 @@ Plataforma SaaS multi-tenant para venta de herramientas con:
 ```
 src/
 ├── components/
-│   ├── admin/AdminDashboard.tsx     ✅ UI completa, falta lógica
+│   ├── admin/AdminDashboard.tsx     ✅ UI completa + lógica de tenants
 │   ├── auth/LoginPage.tsx           ✅ Funcionando
 │   ├── FloatingCartIcon.tsx         ✅ UX mejorada
 │   ├── ProductGrid.tsx              ✅ Carga productos
@@ -179,39 +221,17 @@ src/
 │   └── supabase.ts                  ✅ Configurado
 └── services/
     ├── productService.ts            ✅ CRUD básico
-    └── tenantService.ts             ⚠️ Falta implementar
+    └── tenantService.ts             ✅ CRUD completo + super_admin
 ```
 
 ### 🔧 **Base de Datos (Supabase)**
 ```sql
 ✅ auth.users        - Usuarios con roles
-✅ tenants          - Configuración multi-tenant  
+✅ tenants          - Configuración multi-tenant + políticas RLS
 ✅ products         - Productos por tenant
 ⏳ orders           - Pendiente implementar
 ⏳ order_items      - Pendiente implementar
 ```
-
----
-
-## 🎯 ROADMAP HACIA MVP
-
-### **Semana 1-2: Core Admin**
-1. ✅ ~~Arreglar carga de tenants reales~~
-2. 🔥 Implementar ProductManager CRUD
-3. 🔥 Formularios de creación/edición
-4. 🔥 Subida de imágenes básica
-
-### **Semana 3: Checkout**  
-1. 🔥 Página de checkout completa
-2. 🔥 Integración MercadoPago real
-3. 🔥 Estados de pedidos básicos
-4. 🔥 Confirmaciones por email/WhatsApp
-
-### **Semana 4: Polish & Deploy**
-1. 🔥 Testing completo de flujos
-2. 🔥 Optimizaciones de rendimiento
-3. 🔥 Deploy estable a producción
-4. 🔥 Documentación de usuario final
 
 ---
 

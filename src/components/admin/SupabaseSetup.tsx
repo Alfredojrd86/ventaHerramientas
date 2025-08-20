@@ -1,13 +1,101 @@
 import React, { useState } from 'react';
 import { CheckCircleIcon, ExclamationTriangleIcon, ClipboardDocumentIcon } from '@heroicons/react/24/outline';
+import { TenantService } from '../../services/tenantService';
+import { supabase } from '../../config/supabase';
+
+interface TestResults {
+  supabaseConnection: string;
+  tenantsCount: string;
+  tenantService: string;
+  policies: string;
+}
 
 export default function SupabaseSetup() {
   const [copied, setCopied] = useState<string>('');
+  const [testResults, setTestResults] = useState<TestResults | null>(null);
+  const [isTesting, setIsTesting] = useState(false);
 
   const copyToClipboard = (text: string, type: string) => {
     navigator.clipboard.writeText(text);
     setCopied(type);
     setTimeout(() => setCopied(''), 2000);
+  };
+
+  const runTests = async () => {
+    setIsTesting(true);
+    const results: TestResults = {
+      supabaseConnection: 'testing',
+      tenantsCount: 'testing',
+      tenantService: 'testing',
+      policies: 'testing'
+    };
+
+    try {
+      // Test 1: Conexión a Supabase
+      console.log('🔍 Test 1: Probando conexión a Supabase...');
+      const { error: connectionError } = await supabase
+        .from('tenants')
+        .select('count', { count: 'exact', head: true });
+      
+      if (connectionError) {
+        console.error('❌ Error de conexión:', connectionError);
+        results.supabaseConnection = `error: ${connectionError.message}`;
+      } else {
+        console.log('✅ Conexión exitosa');
+        results.supabaseConnection = 'success';
+      }
+
+      // Test 2: Contar tenants
+      console.log('🔍 Test 2: Contando tenants...');
+      const { count: tenantsCount, error: countError } = await supabase
+        .from('tenants')
+        .select('*', { count: 'exact', head: true });
+
+      if (countError) {
+        console.error('❌ Error contando tenants:', countError);
+        results.tenantsCount = `error: ${countError.message}`;
+      } else {
+        console.log(`✅ Tenants encontrados: ${tenantsCount}`);
+        results.tenantsCount = `success: ${tenantsCount} tenants`;
+      }
+
+      // Test 3: TenantService
+      console.log('🔍 Test 3: Probando TenantService...');
+      try {
+        const allTenants = await TenantService.getAllTenants();
+        console.log(`✅ TenantService funcionando: ${allTenants.length} tenants`);
+        results.tenantService = `success: ${allTenants.length} tenants cargados`;
+      } catch (error) {
+        console.error('❌ Error en TenantService:', error);
+        results.tenantService = `error: ${(error as Error).message}`;
+      }
+
+      // Test 4: Verificar políticas RLS
+      console.log('🔍 Test 4: Verificando políticas RLS...');
+      try {
+        const { error: policiesError } = await supabase
+          .from('tenants')
+          .select('*')
+          .limit(1);
+        
+        if (policiesError) {
+          console.error('❌ Error accediendo a tenants (posible problema RLS):', policiesError);
+          results.policies = `warning: ${policiesError.message}`;
+        } else {
+          console.log('✅ Políticas RLS funcionando correctamente');
+          results.policies = 'success';
+        }
+      } catch (error) {
+        console.error('❌ Error verificando políticas:', error);
+        results.policies = `error: ${(error as Error).message}`;
+      }
+
+    } catch (error) {
+      console.error('❌ Error general en tests:', error);
+    } finally {
+      setIsTesting(false);
+      setTestResults(results);
+    }
   };
 
   const sqlScript = `-- 🗄️ SCRIPT SQL PARA SUPABASE
@@ -356,6 +444,157 @@ CREATE INDEX idx_products_search ON products USING gin(to_tsvector('spanish', na
                 ve a la pestaña **🔧 Productos** para empezar a agregar las herramientas de tu taller.
               </p>
             </div>
+          </div>
+        </div>
+
+        {/* Pruebas de conexión */}
+        <div className="bg-white border border-gray-200 rounded-lg p-6">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+              <span className="text-purple-600 font-bold">🧪</span>
+            </div>
+            <h3 className="text-lg font-semibold">Pruebas de Conexión</h3>
+          </div>
+          <div className="pl-11">
+            <p className="text-gray-700 mb-4">
+              Ejecuta estas pruebas para verificar que todo esté funcionando correctamente:
+            </p>
+            
+            <button
+              onClick={runTests}
+              disabled={isTesting}
+              className="bg-purple-600 hover:bg-purple-700 disabled:bg-purple-400 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+            >
+              {isTesting ? 'Ejecutando pruebas...' : '🧪 Ejecutar Pruebas'}
+            </button>
+
+            {testResults && (
+              <div className="mt-6 space-y-3">
+                <h4 className="font-medium text-gray-900">Resultados de las Pruebas:</h4>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className={`p-3 rounded-lg border ${
+                    testResults.supabaseConnection.startsWith('success') 
+                      ? 'bg-green-50 border-green-200' 
+                      : testResults.supabaseConnection.startsWith('error')
+                      ? 'bg-red-50 border-red-200'
+                      : 'bg-yellow-50 border-yellow-200'
+                  }`}>
+                    <div className="flex items-center gap-2">
+                      {testResults.supabaseConnection.startsWith('success') ? (
+                        <CheckCircleIcon className="w-5 h-5 text-green-600" />
+                      ) : testResults.supabaseConnection.startsWith('error') ? (
+                        <ExclamationTriangleIcon className="w-5 h-5 text-red-600" />
+                      ) : (
+                        <ExclamationTriangleIcon className="w-5 h-5 text-yellow-600" />
+                      )}
+                      <span className="font-medium">Conexión Supabase</span>
+                    </div>
+                    <p className="text-sm mt-1">
+                      {testResults.supabaseConnection.replace(/^(success|error|warning):\s*/, '')}
+                    </p>
+                  </div>
+
+                  <div className={`p-3 rounded-lg border ${
+                    testResults.tenantsCount.startsWith('success') 
+                      ? 'bg-green-50 border-green-200' 
+                      : testResults.tenantsCount.startsWith('error')
+                      ? 'bg-red-50 border-red-200'
+                      : 'bg-yellow-50 border-yellow-200'
+                  }`}>
+                    <div className="flex items-center gap-2">
+                      {testResults.tenantsCount.startsWith('success') ? (
+                        <CheckCircleIcon className="w-5 h-5 text-green-600" />
+                      ) : testResults.tenantsCount.startsWith('error') ? (
+                        <ExclamationTriangleIcon className="w-5 h-5 text-red-600" />
+                      ) : (
+                        <ExclamationTriangleIcon className="w-5 h-5 text-yellow-600" />
+                      )}
+                      <span className="font-medium">Conteo de Tenants</span>
+                    </div>
+                    <p className="text-sm mt-1">
+                      {testResults.tenantsCount.replace(/^(success|error|warning):\s*/, '')}
+                    </p>
+                  </div>
+
+                  <div className={`p-3 rounded-lg border ${
+                    testResults.tenantService.startsWith('success') 
+                      ? 'bg-green-50 border-green-200' 
+                      : testResults.tenantService.startsWith('error')
+                      ? 'bg-red-50 border-red-200'
+                      : 'bg-yellow-50 border-yellow-200'
+                  }`}>
+                    <div className="flex items-center gap-2">
+                      {testResults.tenantService.startsWith('success') ? (
+                        <CheckCircleIcon className="w-5 h-5 text-green-600" />
+                      ) : testResults.tenantService.startsWith('error') ? (
+                        <ExclamationTriangleIcon className="w-5 h-5 text-red-600" />
+                      ) : (
+                        <ExclamationTriangleIcon className="w-5 h-5 text-yellow-600" />
+                      )}
+                      <span className="font-medium">TenantService</span>
+                    </div>
+                    <p className="text-sm mt-1">
+                      {testResults.tenantService.replace(/^(success|error|warning):\s*/, '')}
+                    </p>
+                  </div>
+
+                  <div className={`p-3 rounded-lg border ${
+                    testResults.policies.startsWith('success') 
+                      ? 'bg-green-50 border-green-200' 
+                      : testResults.policies.startsWith('error')
+                      ? 'bg-red-50 border-red-200'
+                      : 'bg-yellow-50 border-yellow-200'
+                  }`}>
+                    <div className="flex items-center gap-2">
+                      {testResults.policies.startsWith('success') ? (
+                        <CheckCircleIcon className="w-5 h-5 text-green-600" />
+                      ) : testResults.policies.startsWith('error') ? (
+                        <ExclamationTriangleIcon className="w-5 h-5 text-red-600" />
+                      ) : (
+                        <ExclamationTriangleIcon className="w-5 h-5 text-yellow-600" />
+                      )}
+                      <span className="font-medium">Políticas RLS</span>
+                    </div>
+                    <p className="text-sm mt-1">
+                      {testResults.policies.replace(/^(success|error|warning):\s*/, '')}
+                    </p>
+                  </div>
+                </div>
+
+                {testResults && Object.values(testResults).some((result: string) => result.startsWith('error')) && (
+                  <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                    <h5 className="font-medium text-red-900 mb-2">⚠️ Problemas Detectados:</h5>
+                    <ul className="text-sm text-red-700 space-y-1">
+                      {testResults.supabaseConnection.startsWith('error') && (
+                        <li>• <strong>Conexión a Supabase:</strong> Verifica las claves en <code>src/config/supabase.ts</code></li>
+                      )}
+                      {testResults.tenantsCount.startsWith('error') && (
+                        <li>• <strong>Acceso a tenants:</strong> Ejecuta el script SQL de políticas RLS</li>
+                      )}
+                      {testResults.tenantService.startsWith('error') && (
+                        <li>• <strong>TenantService:</strong> Verifica la configuración de la base de datos</li>
+                      )}
+                      {testResults.policies.startsWith('error') && (
+                        <li>• <strong>Políticas RLS:</strong> Ejecuta el script de actualización de políticas</li>
+                      )}
+                    </ul>
+                  </div>
+                )}
+
+                {testResults && Object.values(testResults).every((result: string) => result.startsWith('success')) && (
+                  <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+                    <div className="flex items-center gap-2">
+                      <CheckCircleIcon className="w-6 h-6 text-green-600" />
+                      <h5 className="font-medium text-green-900">🎉 ¡Todo funcionando perfectamente!</h5>
+                    </div>
+                    <p className="text-sm text-green-700 mt-2">
+                      Ya puedes ir a la pestaña <strong>Tiendas</strong> para gestionar tenants.
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>

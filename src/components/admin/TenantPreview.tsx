@@ -7,12 +7,49 @@ interface TenantPreviewProps {
 }
 
 export default function TenantPreview({ tenant, onClose }: TenantPreviewProps) {
+  // Validar que el tenant tenga los datos mínimos necesarios
+  if (!tenant || !tenant.business || !tenant.branding) {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div className="bg-white rounded-lg shadow-2xl max-w-md w-full p-6">
+          <div className="text-center">
+            <div className="text-6xl mb-4">⚠️</div>
+            <h2 className="text-xl font-bold text-gray-900 mb-2">Datos Insuficientes</h2>
+            <p className="text-gray-600 mb-6">
+              El tenant no tiene la información necesaria para mostrar la vista previa.
+            </p>
+            <button
+              onClick={onClose}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat(tenant.business.language === 'es' ? 'es-CL' : 'en-US', {
-      style: 'currency',
-      currency: tenant.business.currency,
-      minimumFractionDigits: 0,
-    }).format(price);
+    try {
+      // Validar que currency esté definido y sea válido
+      const currency = tenant.business?.currency || 'CLP';
+      const language = tenant.business?.language || 'es';
+      
+      // Lista de códigos de moneda válidos
+      const validCurrencies = ['CLP', 'USD', 'EUR', 'ARS', 'BRL', 'MXN', 'COP', 'PEN'];
+      const safeCurrency = validCurrencies.includes(currency) ? currency : 'CLP';
+      
+      return new Intl.NumberFormat(language === 'es' ? 'es-CL' : 'en-US', {
+        style: 'currency',
+        currency: safeCurrency,
+        minimumFractionDigits: 0,
+      }).format(price);
+    } catch (error) {
+      console.warn('Error formatting price:', error);
+      // Fallback simple
+      return `${price.toLocaleString()} ${tenant.business?.currency || 'CLP'}`;
+    }
   };
 
   // Mock product for preview
@@ -39,10 +76,10 @@ export default function TenantPreview({ tenant, onClose }: TenantPreviewProps) {
         <div className="flex justify-between items-center p-6 border-b border-gray-200 bg-gray-50">
           <div>
             <h2 className="text-2xl font-bold text-gray-900">
-              Vista Previa: {tenant.business.name}
+              Vista Previa: {tenant.business?.name || 'Sin nombre'}
             </h2>
             <p className="text-gray-600">
-              {tenant.slug} • {tenant.business.industry}
+              {tenant.slug || 'sin-slug'} • {tenant.business?.industry || 'Sin industria'}
             </p>
           </div>
           <button
@@ -68,7 +105,7 @@ export default function TenantPreview({ tenant, onClose }: TenantPreviewProps) {
                   <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                 </div>
                 <div className="flex-1 bg-white rounded px-3 py-1 text-sm text-gray-600">
-                  {tenant.domain || `${tenant.slug}.mitienda.com`}
+                  {tenant.domain || `${tenant.slug || 'tenant'}.mitienda.com`}
                 </div>
               </div>
 
@@ -76,10 +113,10 @@ export default function TenantPreview({ tenant, onClose }: TenantPreviewProps) {
               <div 
                 className="min-h-screen"
                 style={{
-                  fontFamily: tenant.branding.fontFamily,
-                  '--color-primary': tenant.branding.primaryColor,
-                  '--color-secondary': tenant.branding.secondaryColor,
-                  '--color-accent': tenant.branding.accentColor,
+                  fontFamily: tenant.branding?.fontFamily || 'Inter, sans-serif',
+                  '--color-primary': tenant.branding?.primaryColor || '#1e40af',
+                  '--color-secondary': tenant.branding?.secondaryColor || '#1e3a8a',
+                  '--color-accent': tenant.branding?.accentColor || '#3b82f6',
                 } as React.CSSProperties}
               >
                 {/* Hero Section Preview */}
@@ -91,10 +128,10 @@ export default function TenantPreview({ tenant, onClose }: TenantPreviewProps) {
                 >
                   <div className="max-w-4xl mx-auto text-center">
                     <h1 className="text-4xl font-bold mb-4">
-                      {tenant.business.name}
+                      {tenant.business?.name || 'Nombre de la Tienda'}
                     </h1>
                     <p className="text-xl mb-8 opacity-90">
-                      {tenant.business.description}
+                      {tenant.business?.description || 'Descripción no configurada'}
                     </p>
                     <button 
                       className="px-8 py-3 rounded-lg font-semibold text-white transition-colors"
@@ -140,23 +177,23 @@ export default function TenantPreview({ tenant, onClose }: TenantPreviewProps) {
                               </span>
                             </div>
                             <div className="mb-3">
-                              {tenant.layout.showDiscount && (
+                              {tenant.layout?.showDiscount && (
                                 <div className="text-sm text-gray-500 line-through">
                                   {formatPrice(150000)}
                                 </div>
                               )}
-                              <div className="text-lg font-bold" style={{ color: tenant.branding.primaryColor }}>
+                              <div className="text-lg font-bold" style={{ color: tenant.branding?.primaryColor || '#1e40af' }}>
                                 {formatPrice(120000)}
                               </div>
                             </div>
-                            {tenant.layout.showStock && (
+                            {tenant.layout?.showStock && (
                               <div className="text-xs text-orange-600 mb-3">
                                 Solo quedan 5 unidades
                               </div>
                             )}
                             <button 
                               className="w-full py-2 px-4 rounded-lg font-semibold text-white transition-colors"
-                              style={{ backgroundColor: tenant.branding.primaryColor }}
+                              style={{ backgroundColor: tenant.branding?.primaryColor || '#1e40af' }}
                             >
                               Agregar al Carrito
                             </button>
@@ -170,15 +207,15 @@ export default function TenantPreview({ tenant, onClose }: TenantPreviewProps) {
                 {/* Features Preview */}
                 <div className="py-16 px-8 bg-white">
                   <div className="max-w-4xl mx-auto">
-                    <h2 className="text-3xl font-bold text-center mb-12" style={{ color: tenant.branding.primaryColor }}>
+                    <h2 className="text-3xl font-bold text-center mb-12" style={{ color: tenant.branding?.primaryColor || '#1e40af' }}>
                       Características Habilitadas
                     </h2>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                      {Object.entries(tenant.features).filter(([, enabled]) => enabled).map(([feature, enabled]) => (
+                      {tenant.features && Object.entries(tenant.features).filter(([, enabled]) => enabled).map(([feature, enabled]) => (
                         <div key={feature} className="text-center p-6 border border-gray-200 rounded-lg">
                           <div className="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center text-white text-xl"
-                               style={{ backgroundColor: tenant.branding.accentColor }}>
+                               style={{ backgroundColor: tenant.branding?.accentColor || '#3b82f6' }}>
                             {getFeatureIcon(feature)}
                           </div>
                           <h3 className="font-semibold text-gray-800 mb-2">
@@ -205,15 +242,15 @@ export default function TenantPreview({ tenant, onClose }: TenantPreviewProps) {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                       <div>
                         <div className="text-2xl mb-2">📞</div>
-                        <p>{tenant.business.contactInfo.phone || 'Teléfono no configurado'}</p>
+                        <p>{tenant.business?.contactInfo?.phone || 'Teléfono no configurado'}</p>
                       </div>
                       <div>
                         <div className="text-2xl mb-2">✉️</div>
-                        <p>{tenant.business.contactInfo.email || 'Email no configurado'}</p>
+                        <p>{tenant.business?.contactInfo?.email || 'Email no configurado'}</p>
                       </div>
                       <div>
                         <div className="text-2xl mb-2">📍</div>
-                        <p>{tenant.business.contactInfo.city || 'Ciudad no configurada'}</p>
+                        <p>{tenant.business?.contactInfo?.city || 'Ciudad no configurada'}</p>
                       </div>
                     </div>
                   </div>

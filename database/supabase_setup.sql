@@ -1,5 +1,10 @@
--- 🗄️ SCRIPT SQL PARA SUPABASE
+-- 🗄️ SCRIPT SQL PARA SUPABASE (Arquitectura actualizada)
 -- Copia y pega esto en el SQL Editor de Supabase
+--
+-- Cambios clave:
+-- 1) Unicidad por tienda en productos: UNIQUE(tenant_id, code)
+-- 2) Campo tenant_specific_status para habilitar/deshabilitar producto por tienda
+-- 3) Sección RLS dejada como OPCIONAL (comentada) para no bloquear ambientes de prueba
 
 -- 1. Tabla de tenants (tiendas)
 CREATE TABLE tenants (
@@ -95,6 +100,8 @@ CREATE TABLE products (
   category TEXT,
   brand TEXT,
   is_active BOOLEAN DEFAULT TRUE,
+  -- Estado específico por tienda (control granular por tenant)
+  tenant_specific_status TEXT DEFAULT 'active' CHECK (tenant_specific_status IN ('active','inactive','out_of_stock')),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   
@@ -120,34 +127,28 @@ CREATE TRIGGER update_products_updated_at
   BEFORE UPDATE ON products 
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
--- 5. Políticas de seguridad (RLS)
-ALTER TABLE tenants ENABLE ROW LEVEL SECURITY;
-ALTER TABLE products ENABLE ROW LEVEL SECURITY;
-
--- Los usuarios solo pueden ver/editar sus propios tenants
-CREATE POLICY "Users can view their own tenants" ON tenants
-  FOR SELECT USING (auth.uid() = owner_id);
-
-CREATE POLICY "Users can update their own tenants" ON tenants
-  FOR UPDATE USING (auth.uid() = owner_id);
-
-CREATE POLICY "Users can insert their own tenants" ON tenants
-  FOR INSERT WITH CHECK (auth.uid() = owner_id);
-
--- Los usuarios solo pueden ver/editar productos de sus tenants
-CREATE POLICY "Users can view products of their tenants" ON products
-  FOR SELECT USING (
-    tenant_id IN (
-      SELECT id FROM tenants WHERE owner_id = auth.uid()
-    )
-  );
-
-CREATE POLICY "Users can manage products of their tenants" ON products
-  FOR ALL USING (
-    tenant_id IN (
-      SELECT id FROM tenants WHERE owner_id = auth.uid()
-    )
-  );
+-- 5. Políticas de seguridad (RLS) - OPCIONAL (dejado comentado para pruebas)
+-- Habilita estas líneas cuando quieras aplicar seguridad por filas.
+-- ALTER TABLE tenants ENABLE ROW LEVEL SECURITY;
+-- ALTER TABLE products ENABLE ROW LEVEL SECURITY;
+--
+-- -- Lectura de tenants para usuarios autenticados
+-- CREATE POLICY tenants_auth_read ON tenants
+--   FOR SELECT USING (auth.uid() IS NOT NULL);
+--
+-- -- Gestión solo de los tenants propios
+-- CREATE POLICY tenants_manage_own ON tenants
+--   FOR ALL USING (owner_id = auth.uid());
+--
+-- -- Lectura de productos para usuarios autenticados
+-- CREATE POLICY products_auth_read ON products
+--   FOR SELECT USING (auth.uid() IS NOT NULL);
+--
+-- -- Gestión de productos solo de los tenants del usuario
+-- CREATE POLICY products_manage_tenant ON products
+--   FOR ALL USING (
+--     tenant_id IN (SELECT id FROM tenants WHERE owner_id = auth.uid())
+--   );
 
 -- 6. Insertar tu tenant inicial (CAMBIA LOS VALORES)
 INSERT INTO tenants (

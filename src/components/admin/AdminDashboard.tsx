@@ -1,92 +1,141 @@
 import React, { useState, useEffect } from 'react';
 import { TenantConfig } from '../../types/tenant';
 import { useAuth } from '../../contexts/AuthContext';
+import { TenantService } from '../../services/tenantService';
 import TenantList from './TenantList';
 import TenantEditor from './TenantEditor';
 import DashboardStats from './DashboardStats';
 import TenantPreview from './TenantPreview';
 import ProductManager from './ProductManager';
 import SupabaseSetup from './SupabaseSetup';
-
+import OwnersHierarchy from './OwnersHierarchy';
 
 // Los tenants ahora se cargan desde Supabase
 
-type DashboardView = 'overview' | 'tenants' | 'create' | 'edit' | 'preview' | 'products' | 'setup';
+type DashboardView = 'overview' | 'tenants' | 'create' | 'edit' | 'preview' | 'products' | 'setup' | 'hierarchy';
 
 export default function AdminDashboard() {
   const { user, logout } = useAuth();
   const [tenants, setTenants] = useState<TenantConfig[]>([]);
-  const [currentView, setCurrentView] = useState<DashboardView>('setup');
+  const [currentView, setCurrentView] = useState<DashboardView>('overview');
   const [selectedTenant, setSelectedTenant] = useState<TenantConfig | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [, setError] = useState<string | null>(null);
+
+  // Calcular tenants válidos (misma lógica que TenantList)
+  const validTenants = tenants.filter(tenant => 
+    tenant && 
+    tenant.id && 
+    tenant.business && 
+    tenant.slug && 
+    tenant.branding && 
+    tenant.product
+  );
 
   // Cargar tenants reales desde Supabase
   useEffect(() => {
     const loadTenants = async () => {
       try {
         setIsLoading(true);
-        // Por ahora solo mostrar el tenant real si existe
-        // En el futuro aquí se cargarían todos los tenants desde Supabase
-        const realTenants: TenantConfig[] = [];
-        setTenants(realTenants);
+        setError(null);
+        
+        // Solo super_admin puede ver todos los tenants
+        if (user?.role === 'super_admin') {
+          const allTenants = await TenantService.getAllTenants();
+          setTenants(allTenants);
+        } else {
+          // Tenant owners solo ven su propio tenant
+          const userTenants = await TenantService.getUserTenants();
+          setTenants(userTenants);
+        }
       } catch (error) {
         console.error('Error loading tenants:', error);
+        setError('Error al cargar tenants');
         setTenants([]);
       } finally {
         setIsLoading(false);
       }
     };
 
-    loadTenants();
-  }, []);
+    if (user) {
+      loadTenants();
+    }
+  }, [user]);
 
   const handleCreateTenant = async (tenantData: Partial<TenantConfig>) => {
-    setIsLoading(true);
-    
-    // Simular creación de tenant
-    const newTenant: TenantConfig = {
-      ...tenantData,
-      id: `tenant-${Date.now()}`,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    } as TenantConfig;
-
-    setTimeout(() => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      // Asignar el owner_id del usuario autenticado
+      const tenantWithOwner = {
+        ...tenantData,
+        ownerId: user?.id // Asignar el ID del usuario actual
+      };
+      
+      const newTenant = await TenantService.createTenant(tenantWithOwner);
       setTenants(prev => [...prev, newTenant]);
       setCurrentView('tenants');
+      
+      // Mostrar mensaje de éxito
+      alert('Tenant creado exitosamente');
+    } catch (error) {
+      console.error('Error creating tenant:', error);
+      setError('Error al crear tenant');
+      alert('Error al crear tenant: ' + (error as Error).message);
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   const handleUpdateTenant = async (tenantId: string, updates: Partial<TenantConfig>) => {
-    setIsLoading(true);
-    
-    setTimeout(() => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      const updatedTenant = await TenantService.updateTenant(tenantId, updates);
       setTenants(prev => prev.map(tenant => 
-        tenant.id === tenantId 
-          ? { ...tenant, ...updates, updatedAt: new Date().toISOString() }
-          : tenant
+        tenant.id === tenantId ? updatedTenant : tenant
       ));
       setCurrentView('tenants');
       setSelectedTenant(null);
+      
+      // Mostrar mensaje de éxito
+      alert('Tenant actualizado exitosamente');
+    } catch (error) {
+      console.error('Error updating tenant:', error);
+      setError('Error al actualizar tenant');
+      alert('Error al actualizar tenant: ' + (error as Error).message);
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   const handleDeleteTenant = async (tenantId: string) => {
-    if (!confirm('¿Estás seguro de que quieres eliminar este tenant?')) return;
+    if (!confirm('¿Estás seguro de que quieres eliminar este tenant? Esta acción no se puede deshacer.')) return;
     
-    setIsLoading(true);
-    setTimeout(() => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      await TenantService.deleteTenant(tenantId);
       setTenants(prev => prev.filter(tenant => tenant.id !== tenantId));
+      
+      // Mostrar mensaje de éxito
+      alert('Tenant eliminado exitosamente');
+    } catch (error) {
+      console.error('Error deleting tenant:', error);
+      setError('Error al eliminar tenant');
+      alert('Error al eliminar tenant: ' + (error as Error).message);
+    } finally {
       setIsLoading(false);
-    }, 500);
+    }
   };
 
   const renderCurrentView = () => {
     switch (currentView) {
       case 'overview':
-        return <DashboardStats tenants={tenants} />;
+        return <DashboardStats tenants={validTenants} />;
       
       case 'tenants':
         return (
@@ -146,8 +195,11 @@ export default function AdminDashboard() {
       case 'setup':
         return <SupabaseSetup />;
       
+      case 'hierarchy':
+        return <OwnersHierarchy />;
+      
       default:
-        return <DashboardStats tenants={tenants} />;
+        return <DashboardStats tenants={validTenants} />;
     }
   };
 
@@ -202,7 +254,12 @@ export default function AdminDashboard() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
                 <span className="text-sm font-medium text-gray-700">
-                  {tenants.length} tenant{tenants.length !== 1 ? 's' : ''}
+                  {validTenants.length} tenant{validTenants.length !== 1 ? 's' : ''}
+                  {tenants.length !== validTenants.length && (
+                    <span className="text-xs text-orange-600 ml-1">
+                      ({tenants.length - validTenants.length} con datos incompletos)
+                    </span>
+                  )}
                 </span>
               </div>
 
@@ -267,6 +324,15 @@ export default function AdminDashboard() {
                 icon: (
                   <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                )
+              },
+              { 
+                key: 'hierarchy', 
+                label: 'Jerarquía', 
+                icon: (
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                   </svg>
                 )
               },

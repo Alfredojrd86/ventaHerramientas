@@ -2,6 +2,21 @@ import { supabase, DatabaseTenant } from '../config/supabase';
 import { TenantConfig } from '../types/tenant';
 
 export class TenantService {
+  // Obtener todos los tenants (solo para super_admin)
+  static async getAllTenants(): Promise<TenantConfig[]> {
+    const { data, error } = await supabase
+      .from('tenants')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('Error fetching all tenants:', error);
+      throw error;
+    }
+
+    return data.map(this.transformDatabaseToTenant);
+  }
+
   // Obtener todos los tenants del usuario actual
   static async getUserTenants(): Promise<TenantConfig[]> {
     const { data, error } = await supabase
